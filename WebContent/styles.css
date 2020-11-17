@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background:#fdfdfd;
+}
+
+#login {
+	background:white;
+	text-align: center;
+	width:70%;
+	margin:10% auto;
+	padding:20px;
+	top: 50%;
+	left: 50%;
+	border: 1px solid #e8e8e8;
+	border-radius:15px;
+	-webkit-box-shadow: 10px 10px 0px 0px #f0f0f0; 
+	box-shadow: 10px 10px 0px 0px #f0f0f0;
+}
+
+input[type="text"], input[type="password"] {
+    border: 1px solid #e8e8e8;
+	border-radius:15px;
+    padding: 10px;
+    margin:0 20px 20px 20px;
+}
+
+.btn {
+	width:20%;
+	margin:20px;
+    padding: 10px;
+    background: #fafafa;
+    border: 1px solid #e8e8e8;
+    border-radius:10px;
+    cursor: pointer;
+}
+
+input,
+button {
+    font-family: 'Roboto', sans-serif;
+}

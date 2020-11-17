@@ -1,14 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link href="${pageContext.request.contextPath}/styles.css" type="text/css" rel="stylesheet" />
+		<title>Train App</title>
+	</head>
+   <body>
+   <div id="content">
+
 <% if ((session.getAttribute("user") == null)) {%>
 
-You are not logged in<br/>
+<p>You are not logged in</p>
 
-<a href="login.jsp">Please Login</a>
-
+<p><a href="login.jsp">Please Login</a></p>
 
 <%} else {%>
 
-Welcome <%=session.getAttribute("user")%> 
+<p>Welcome <%=session.getAttribute("user")%> </p>
 
-<a href='logout.jsp'>Log out</a>
+<p><a href='logout.jsp'>Log out</a></p>
 
 <%}%>
+
+   </div>
+   </body>
+</html>

@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page import ="java.sql.*" %>
 <%
     String userid = request.getParameter("username");   
@@ -9,13 +11,25 @@
     Statement st = con.createStatement();
     ResultSet rs;
     rs = st.executeQuery("select * from users where username='" + userid + "' and password='" + pwd + "'");
-    
-    if (rs.next()) {
-        session.setAttribute("user", userid); // the username will be stored in the session
-        out.println("welcome " + userid);
-        out.println("<a href='logout.jsp'>Log out</a>");
-        response.sendRedirect("success.jsp");
-    } else {
-        out.println("Invalid password <a href='login.jsp'>Try again</a>");
-    }
 %>
+<!DOCTYPE html>
+<html>
+	<head>
+		<link href="${pageContext.request.contextPath}/styles.css" type="text/css" rel="stylesheet" />
+		<title>Train App</title>
+	</head>
+   <body>
+   <div id="content">
+	<% if (rs.next()) {
+        session.setAttribute("user", userid);%> // the username will be stored in the session
+        <p>welcome <%=userid%></p>
+        <p><a href='logout.jsp'>Log out</a></p>
+        <% response.sendRedirect("success.jsp");
+    } else {%>
+        <p>Invalid password</p>
+        <p><a href='login.jsp'>Try again</a></p>
+    <% } %>
+
+   </div>
+   </body>
+</html>

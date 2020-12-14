@@ -4,13 +4,20 @@
 <%
     String userid = request.getParameter("username");   
     String pwd = request.getParameter("password");
+    String usertype = request.getParameter("userType");
+    System.out.println(usertype);
     
     Class.forName("com.mysql.jdbc.Driver");
     Connection con = DriverManager.getConnection("jdbc:mysql://trainappdb.cmeqwsu4k6hd.us-east-2.rds.amazonaws.com:3306/project", "admin", "Rutgers1");
     
     Statement st = con.createStatement();
     ResultSet rs;
-    rs = st.executeQuery("select * from users where username='" + userid + "' and password='" + pwd + "'");
+    if(usertype.equals("customer")){
+    	rs = st.executeQuery("select * from customer where username='" + userid + "' and password='" + pwd + "'");
+    } else if(usertype.equals("admin")){
+    	rs = st.executeQuery("select * from employee where username='" + userid + "' and password='" + pwd + "'");
+    } else{ rs = st.executeQuery("select * from employee where username='" + userid + "' and password='" + pwd + "'");
+    }
 %>
 <!DOCTYPE html>
 <html>

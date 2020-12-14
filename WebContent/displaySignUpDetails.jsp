@@ -4,20 +4,26 @@
 try {
     String newUsername = request.getParameter("newUsername");   
     String newPassword = request.getParameter("newPassword");
+    String newEmail = request.getParameter("newEmail");
+    String newFirstName = request.getParameter("newFirstName");
+    String newLastName = request.getParameter("newLastName");
     Class.forName("com.mysql.jdbc.Driver");
     Connection con = DriverManager.getConnection("jdbc:mysql://trainappdb.cmeqwsu4k6hd.us-east-2.rds.amazonaws.com:3306/project", "admin", "Rutgers1");
     
     
-  	// insert statement for the users table:
-	String insert = "INSERT INTO users "
-			+ "VALUES (?, ?)";
+  	// insert statement for the customer table:
+	String insert = "INSERT INTO customer "
+			+ "VALUES (?,?,?,?,?)";
   	
 	// prepared SQL statement allowing you to introduce the parameters of the query
 	PreparedStatement ps = con.prepareStatement(insert);
 
 	// parameters of the query. Start with 1, the 0-parameter is the INSERT statement itself
-	ps.setString(1, newUsername);
-	ps.setString(2, newPassword);
+	ps.setString(1, newEmail);
+	ps.setString(2, newUsername);
+	ps.setString(3, newPassword);
+	ps.setString(4, newFirstName);
+	ps.setString(5, newLastName);
 	
 	// run the query against the DB
 	ps.executeUpdate();
@@ -41,7 +47,7 @@ try {
     
     Statement st = con.createStatement();
     ResultSet rs;
-    rs = st.executeQuery("insert into users values ('" + newUsername + "', '" + newPassword + "'");
+    rs = st.executeQuery("insert into customer values ('" + newUsername + "', '" + newPassword + "'");
     if (rs.next()) {
         session.setAttribute("user", newUsername); // the username will be stored in the session
         out.println("Welcome " + newUsername);

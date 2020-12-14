@@ -12,11 +12,10 @@
 		<form action="displayLoginDetails.jsp" method="POST">
 			Username: <input type="text" name="username"/> <br/>
 			Password: <input type="password" name="password"/> <br/>
-			<input type="hidden" name="userType" value="customer"/>
+			<input type="hidden" name="userType" value="admin"/>
 			<input type="submit" class="btn" value="Log in">
 		</form>
-	     <a href="signUpPage.jsp">Don't have an account? Sign up!</a>
-	     <p><a href="adminLogin.jsp">Login as Admin</a> • <a href="customerRepLogin.jsp">Login as Customer Representative</a></p>
+	     <p><a href="login.jsp">Login as Customer</a> • <a href="customerRepLogin.jsp">Login as Customer Representative</a></p>
 	</div>
 	</body>
 

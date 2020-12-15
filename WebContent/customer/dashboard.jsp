@@ -11,6 +11,7 @@
 	   				response.sendRedirect("../success.jsp");
 	   	   %>
 		   <p>Welcome, customer! <%=session.getAttribute("user")%></p>
+		   <p><a href="browse.jsp">Browse trains</a></p>
 		   <p><a href='../logout.jsp'>Log out</a></p>
 	   </div>
    </body>

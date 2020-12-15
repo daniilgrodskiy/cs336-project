@@ -5,6 +5,7 @@
 <%@ page import ="java.util.LinkedList" %>
 <%@ page import ="java.util.Date" %>
 <%@ page import ="com.cs336.pkg.Trains" %>
+<%@ page import ="com.cs336.pkg.Station" %>
 
 
 <%
@@ -16,6 +17,8 @@
     Class.forName("com.mysql.jdbc.Driver");
     Connection con = DriverManager.getConnection("jdbc:mysql://trainappdb.cmeqwsu4k6hd.us-east-2.rds.amazonaws.com:3306/project", "admin", "Rutgers1");
     
+    
+    //returns all trains that match the search and sort conditions
     Statement st = con.createStatement();
     ResultSet rs;
     
@@ -29,6 +32,7 @@
     	rs = st.executeQuery("select *, CAST(arrival_datetime AS DATE) as d from schedule where origin='" + origin + "' and destination='" + dest + "' and CAST(arrival_datetime AS DATE)='" + date + "'");
 	}
 	
+    //creates a ll of all trains
     LinkedList<Trains> ll = new LinkedList<Trains>();
 	while(rs.next()) {
 		int tid = rs.getInt("tid");
@@ -44,7 +48,8 @@
 		Trains t = new Trains(tid, tran, og, dst, arriv, depart, fare, 0);
 		ll.add(t);
 	}
-
+	
+	rs.close();
     
 %>
 
@@ -122,7 +127,7 @@
 	
 	<br/>
 	<form action="moreInfo.jsp" method="POST" id="moreinfo" name="moreinfo">
-	<p><strong>Get More Info</strong></p>
+	<p><strong>Get More Info (Stops, Etc)</strong></p>
 	What is the train number?<input type="number" id="tid" name="tid" required/><br/>
 	What is the train line name?<input type="text" id="tran" name="tran" required/><br/>
 	<input type="submit" class="btn" value="Search"/><br/>

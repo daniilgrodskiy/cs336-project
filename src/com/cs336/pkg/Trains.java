@@ -1,7 +1,5 @@
 package com.cs336.pkg;
-
 import java.util.Date;
-
 
 public class Trains {
 	int tid; 

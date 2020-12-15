@@ -4,7 +4,6 @@
 <%@ page import ="java.lang.Integer.*" %>
 <%@ page import ="java.util.LinkedList" %>
 <%@ page import ="java.util.Date" %>
-<%@ page import ="java.time.LocalDateTime" %>
 <%@ page import ="com.cs336.pkg.Trains" %>
 
 
@@ -130,7 +129,8 @@
 	</form>
 	
 	</div>
-	<div class="btn"><a href="browse.jsp">Go back</a></div>
+	
+	<div id="back" class="btn"><a href="browse.jsp">Go back</a></div>
 	
 	</body>
 

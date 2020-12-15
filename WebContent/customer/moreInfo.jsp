@@ -36,11 +36,18 @@
 <html>
 	<head>
 		<link href="${pageContext.request.contextPath}/styles.css" type="text/css" rel="stylesheet" />
+		
 		<title>Train App</title>
 	</head>
 	
+
+	
 	<body>
 	<div id="content">
+	<% if (t.getTid() == 0) { %>
+		<p>There are no trains with that information.</p>
+	<% } 
+	else {%>
 	<h1>Train Details</h1>
 	<table style="text-align:left!important">
 	<tr><td>Train Id: <%=t.getTid()%></td></tr>
@@ -52,12 +59,12 @@
 	<tr><td>Fare: $<%=t.getFare()%></td></tr>
 	<tr><td>Travel Time: <%=t.getTravel()%> hours</td></tr>
 
-
+	<% }%>
 	
 	</table>
 	
 	</div>
-	<div class="btn"><a href="browse.jsp">Go back</a></div>
+	<div id="back" class="btn"><a href="browse.jsp">Go back</a></div>
 	</body>
 
 

@@ -31,6 +31,9 @@
 		</form>
 	
 	</div>
+	
+	<div id="back" class="btn"><a href="dashboard.jsp">Go back</a></div>
+	
 	</body>
 
 

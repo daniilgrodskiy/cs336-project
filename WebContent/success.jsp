@@ -13,13 +13,19 @@
 
 <p><a href="login.jsp">Please Login</a></p>
 
-<%} else {%>
-
-<p>Welcome <%=session.getAttribute("user")%> </p>
-
-<p><a href='logout.jsp'>Log out</a></p>
-
-<%}%>
+<%} else {
+ 	System.out.println(session.getAttribute("userType"));
+	 if (session.getAttribute("userType").equals("customer")) {
+		// Redirect to customer page
+		response.sendRedirect("./customer/dashboard.jsp");
+	} else if (session.getAttribute("userType").equals("rep")) {
+		// Redirect to rep page
+		response.sendRedirect("./rep/dashboard.jsp");
+	} else {
+		// Redirect to manager page
+		response.sendRedirect("./manager/dashboard.jsp");
+	}
+}%>
 
    </div>
    </body>

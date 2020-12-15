@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import ="java.sql.*" %>
+    
 <%
     String userid = request.getParameter("username");   
     String pwd = request.getParameter("password");
@@ -16,8 +17,10 @@
     	rs = st.executeQuery("select * from customer where username='" + userid + "' and password='" + pwd + "'");
     } else if(usertype.equals("admin")){
     	rs = st.executeQuery("select * from admins where username='" + userid + "' and password='" + pwd + "'");
-    } else{ rs = st.executeQuery("select * from reps where username='" + userid + "' and password='" + pwd + "'");
+    } else{ 
+    	rs = st.executeQuery("select * from reps where username='" + userid + "' and password='" + pwd + "'");
     }
+   
 %>
 <!DOCTYPE html>
 <html>
@@ -28,8 +31,10 @@
    <body>
    <div id="content">
 	<% if (rs.next()) {
-        session.setAttribute("user", userid);%> // the username will be stored in the session
-        <p>welcome <%=userid%></p>
+        session.setAttribute("user", userid);
+        session.setAttribute("userType", usertype);
+        %><!-- the username will be stored in the session --> 
+        <p>Welcome <%=userid%></p>
         <p><a href='logout.jsp'>Log out</a></p>
         <% response.sendRedirect("success.jsp");
     } else {%>

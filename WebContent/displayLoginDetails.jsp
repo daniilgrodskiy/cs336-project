@@ -15,8 +15,8 @@
     if(usertype.equals("customer")){
     	rs = st.executeQuery("select * from customer where username='" + userid + "' and password='" + pwd + "'");
     } else if(usertype.equals("admin")){
-    	rs = st.executeQuery("select * from employee where username='" + userid + "' and password='" + pwd + "'");
-    } else{ rs = st.executeQuery("select * from employee where username='" + userid + "' and password='" + pwd + "'");
+    	rs = st.executeQuery("select * from admins where username='" + userid + "' and password='" + pwd + "'");
+    } else{ rs = st.executeQuery("select * from reps where username='" + userid + "' and password='" + pwd + "'");
     }
 %>
 <!DOCTYPE html>

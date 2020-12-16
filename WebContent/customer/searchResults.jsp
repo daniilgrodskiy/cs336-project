@@ -54,7 +54,7 @@
 	
 	rs.close();
 	
-	 //gets all station names
+	 
     ResultSet r; 
   	r = st.executeQuery("select sid, station_name from station");
     LinkedList<Station> stations = new LinkedList<Station>();
@@ -65,6 +65,7 @@
     	stations.add(temp);
     }
     r.close();
+    
 	
     
     //gets stops of the train
@@ -75,17 +76,12 @@
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
         String d = sdf.format(t.getArriv());
         
-        s = st.executeQuery("select sid from stop where tid = '" + t.getTid() + "' and transit_line_name ='" + t.getTran() + "' and arrival_time between'"+ sdf.format(t.getArriv()) +"' and '" + sdf.format(t.getDepart()) + "' ORDER BY arrival_time");      
+        s = st.executeQuery("select station.sid, station_name from stop join station where stop.sid = station.sid and tid = '" + t.getTid() + "' and transit_line_name ='" + t.getTran() + "' and arrival_time between'"+ sdf.format(t.getArriv()) +"' and '" + sdf.format(t.getDepart()) + "' ORDER BY arrival_time");      
         LinkedList<Station> stops = new LinkedList<Station>();
 
         while(s.next()){
         	int sid = s.getInt("sid");
-        	String station_name ="";
-        	for(int i = 0; i < stations.size(); i++){
-    			if(stations.get(i).getSid() == sid){
-    				station_name = stations.get(i).getStationName();
-    			}
-        	}
+        	String station_name = s.getString("station_name");
         	Station station = new Station(sid, station_name);
         	stops.add(station);
         }

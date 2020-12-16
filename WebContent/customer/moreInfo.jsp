@@ -3,12 +3,11 @@
     pageEncoding="UTF-8"%>
 <%@ page import ="java.sql.*" %>
 <%@ page import ="java.util.LinkedList" %>
-<%@ page import ="com.cs336.pkg.Trains" %>
-<%@ page import ="com.cs336.pkg.Station" %>
+<%@ page import ="com.cs336.eliza.Trains" %>
+<%@ page import ="com.cs336.eliza.Station" %>
 <%
 	int tid = Integer.parseInt(request.getParameter("tid")); 
 	String tran = request.getParameter("tran"); 
-	System.out.print("TRAN IS: " + tran + " TID IS: " + tid);
     
     Class.forName("com.mysql.jdbc.Driver");
     Connection con = DriverManager.getConnection("jdbc:mysql://trainappdb.cmeqwsu4k6hd.us-east-2.rds.amazonaws.com:3306/project", "admin", "Rutgers1");
@@ -50,7 +49,9 @@
     r.close();
   	
     //gets stops of the train
+
     ResultSet s;
+    
     s = st.executeQuery("select sid from stop where tid = '" + t.getTid() + "' and transit_line_name ='" + t.getTran() + "' and arrival_time between'"+ t.getArriv() +"' and '" + t.getDepart() + "' ORDER BY arrival_time");
     
     LinkedList<Station> stops = new LinkedList<Station>();
@@ -67,11 +68,8 @@
     }
     
     t.addStations(stops);
-    System.out.println("No of stops is: " + stops.size());
-    
-    for(int i = 0; i < stops.size(); i++){
-    	System.out.println(stops.get(i).getStationName());
-    }
+
+    s.close();
     ///
     
 

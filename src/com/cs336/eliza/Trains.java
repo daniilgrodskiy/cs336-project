@@ -1,4 +1,4 @@
-package com.cs336.pkg;
+package com.cs336.eliza;
 import java.util.Date;
 import java.util.LinkedList;
 

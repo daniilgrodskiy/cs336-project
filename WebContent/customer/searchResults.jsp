@@ -4,8 +4,10 @@
 <%@ page import ="java.lang.Integer.*" %>
 <%@ page import ="java.util.LinkedList" %>
 <%@ page import ="java.util.Date" %>
-<%@ page import ="com.cs336.pkg.Trains" %>
-<%@ page import ="com.cs336.pkg.Station" %>
+<%@ page import ="java.text.SimpleDateFormat"  %>
+<%@ page import ="java.time.format.DateTimeFormatter.*" %>
+<%@ page import ="com.cs336.eliza.Trains" %>
+<%@ page import ="com.cs336.eliza.Station" %>
 
 
 <%
@@ -44,12 +46,54 @@
 		Timestamp d = rs.getTimestamp("departure_datetime");
 		Date depart = new Date(d.getTime());
 		int fare = rs.getInt("fare");
+		int travel = rs.getInt("travel_time");
 		
-		Trains t = new Trains(tid, tran, og, dst, arriv, depart, fare, 0);
+		Trains t = new Trains(tid, tran, og, dst, arriv, depart, fare, travel);
 		ll.add(t);
 	}
 	
 	rs.close();
+	
+	 //gets all station names
+    ResultSet r; 
+  	r = st.executeQuery("select sid, station_name from station");
+    LinkedList<Station> stations = new LinkedList<Station>();
+    while(r.next()){
+    	int stid = r.getInt("sid");
+    	String sname = r.getString("station_name");
+    	Station temp = new Station(stid, sname);
+    	stations.add(temp);
+    }
+    r.close();
+	
+    
+    //gets stops of the train
+    for(int k = 0;  k < ll.size(); k++){
+        ResultSet s;
+        Trains t = ll.get(k);
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
+        String d = sdf.format(t.getArriv());
+        
+        s = st.executeQuery("select sid from stop where tid = '" + t.getTid() + "' and transit_line_name ='" + t.getTran() + "' and arrival_time between'"+ sdf.format(t.getArriv()) +"' and '" + sdf.format(t.getDepart()) + "' ORDER BY arrival_time");      
+        LinkedList<Station> stops = new LinkedList<Station>();
+
+        while(s.next()){
+        	int sid = s.getInt("sid");
+        	String station_name ="";
+        	for(int i = 0; i < stations.size(); i++){
+    			if(stations.get(i).getSid() == sid){
+    				station_name = stations.get(i).getStationName();
+    			}
+        	}
+        	Station station = new Station(sid, station_name);
+        	stops.add(station);
+        }
+        
+        t.addStations(stops);
+        s.close();
+    }
+
     
 %>
 
@@ -63,37 +107,62 @@
 	
 	<body>
 	
-	<div id="content">
+	<div id="content" style="width:90%!important">
 	<h1>Trains</h1>
-	<table id="table">
+	
+	<% for(int i = 0; i < ll.size(); i++){  %>
+	<p><strong>Train <%=String.valueOf(ll.get(i).getTid()) %></strong></p>
+	
+	<table>
 	<tr>
-		<th>Train Number</th>
 		<th>Train Line</th>
 		<th>Train origin</th>
 		<th>Train destination</th>
 		<th>Train arrival time</th>
 		<th>Train Departure Time</th>
 		<th>Train fare</th>
+		<th>Travel time (hours)</th>
+		<th>Train stations</th>
 	</tr>
 	
-	<% for(int i = 0; i < ll.size(); i++){  %>
-	
 	<tr>
-		<td><%=String.valueOf(ll.get(i).getTid()) %></a></td>
 		<td><%=ll.get(i).getTran() %></td>
-		<td><%=String.valueOf(ll.get(i).getOrig()) %></td>
-		<td><%=String.valueOf(ll.get(i).getDest()) %></td>
+		
+		<!-- Gets station names from ints -->
+		<%
+		String orig_name ="";
+		String dest_name="";
+    	for(int h = 0; h < stations.size(); h++){
+			if(stations.get(h).getSid() == ll.get(i).getOrig()){
+				orig_name = stations.get(h).getStationName();
+			} else if (stations.get(h).getSid() == ll.get(i).getDest()){
+				dest_name = stations.get(h).getStationName();
+			}
+    	} %>
+		
+		<td><%=orig_name%></td>
+		<td><%=dest_name %></td>
 		<td><%=String.valueOf(ll.get(i).getArriv()) %></td>
 		<td><%=String.valueOf(ll.get(i).getDepart()) %></td>
 		<td><%=String.valueOf(ll.get(i).getFare()) %></td>
+		<td><%=String.valueOf(ll.get(i).getTravel()) %></td>
+		<td>
+		<% int size = ll.get(i).getStations().size();
+		for(int j = 0; j < size; j++){%>
+		<%=ll.get(i).getStations().get(j).getStationName()%>
+		<% if(j < size - 1){%>, <%} %>
+		<%} %>
+		
+		</td>
 	</tr>
-	
 
-	
-	<% } %>
 	
 	</table>
 	
+	
+	<%} %>
+	
+
 	<br/>
 	
 	<form action="searchResults.jsp" method="POST">
@@ -126,12 +195,6 @@
 	
 	
 	<br/>
-	<form action="moreInfo.jsp" method="POST" id="moreinfo" name="moreinfo">
-	<p><strong>Get More Info (Stops, Etc)</strong></p>
-	What is the train number?<input type="number" id="tid" name="tid" required/><br/>
-	What is the train line name?<input type="text" id="tran" name="tran" required/><br/>
-	<input type="submit" class="btn" value="Search"/><br/>
-	</form>
 	
 	</div>
 	

@@ -1,4 +1,4 @@
-package com.cs336.pkg;
+package com.cs336.eliza;
 
 public class Station {
 	int sid;

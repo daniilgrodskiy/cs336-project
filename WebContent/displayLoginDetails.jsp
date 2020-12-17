@@ -33,11 +33,14 @@
 	<% if (rs.next()) {
         session.setAttribute("user", userid);
         session.setAttribute("userType", usertype);
+        
+        if(usertype.equals("customer")){
         session.setAttribute("userEmail", rs.getString("email"));
+        }
         %><!-- the username will be stored in the session --> 
         <p>Welcome <%=userid%></p>
         <p><a href='logout.jsp'>Log out</a></p>
-        <% response.sendRedirect("/WebContent/customer/success.jsp");
+        <% response.sendRedirect("success.jsp");
     } else {%>
         <p>Invalid password</p>
         <p><a href='login.jsp'>Try again</a></p>

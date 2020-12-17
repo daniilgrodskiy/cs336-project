@@ -17,46 +17,51 @@
 	String age = request.getParameter("age");
 	String disabled = request.getParameter("disabled");
 	String round = request.getParameter("round");
-	
-	
+
+
+
 	Class.forName("com.mysql.jdbc.Driver");
 	Connection con = DriverManager.getConnection("jdbc:mysql://trainappdb.cmeqwsu4k6hd.us-east-2.rds.amazonaws.com:3306/project", "admin", "Rutgers1");
-	
+
 	Statement st = con.createStatement();
 	ResultSet rs = st.executeQuery("select * from station");
 	int originNum = 0;
 	int destNum = 0;
 	while(rs.next()){
 		if(rs.getString("station_name").equals(origin)){
-	originNum = rs.getInt("sid");
+			originNum = rs.getInt("sid");
 		}
 		else if(rs.getString("station_name").equals(dest)){
-	destNum = rs.getInt("sid");
+			destNum = rs.getInt("sid");
 		}
 	}
-	
-	//rs = st.executeQuery("select * from stop s, train t, station z where s.sid=z.sid and t.tid=s.tid and (z.sid=" + originNum + " or z.sid = " + destNum + ") group by transit_line_name");
+
+	if(originNum == destNum){
+		response.sendRedirect("reservationForm.jsp");
+	}
+
 	rs= st.executeQuery("select transit_line_name, CAST(arrival_datetime AS DATE) as d from schedule where origin='" + origin + "' and destination='" + dest + "' and CAST(arrival_datetime AS DATE)='" + date + "'");
-	
+
 	LinkedList<String> transitLines = new LinkedList<String>();
 	while(rs.next()){
 		transitLines.add(rs.getString("transit_line_name"));
 	}
-	
+
 	rs = st.executeQuery("select * from schedule");
-	
+
 	ArrayList<String> line = new ArrayList<String>();
 	ArrayList<Integer> fare = new ArrayList<Integer>();
 	while(rs.next()){
 		line.add(rs.getString("transit_line_name"));
 		fare.add(rs.getInt("fare"));
 	}
-	
-	
+
+
 	rs = st.executeQuery("select * from stop where CAST(arrival_time AS DATE)='" + date + "'");
-	
+
 	ArrayList<ReservationStop> route = new ArrayList<ReservationStop>();
 	ArrayList<ArrayList<ReservationStop>> routes = new ArrayList<ArrayList<ReservationStop>>();
+	ArrayList<Integer> routeOriginIndexes = new ArrayList<Integer>();
 	int trainNum = -1;
 	while(rs.next()){
 		if(trainNum == -1){
@@ -64,7 +69,7 @@
 		}
 		if(rs.getInt("tid") != trainNum){
 			ReservationStop temp = new ReservationStop();
-			
+
 			for (int i = 0; i < route.size()-1; i++) {
 		        if (route.get(i).getArrivalTimeNum() > route.get(i+1).getArrivalTimeNum()) {
 		            temp = route.get(i);
@@ -75,9 +80,12 @@
 			boolean afterOrigin = false;
 			boolean foundDest = false;
 			int c = 0;
+			int index = 0;
 			for(int j = 0; j < route.size(); j++){
 				if(route.get(j).getStation() == originNum){
 					afterOrigin = true;
+					index = j;
+
 				}
 				if(afterOrigin == true){
 					c++;
@@ -91,6 +99,7 @@
 				route.get(0).setTotalStops(route.size());
 				route.get(0).setNumStops(c);
 				routes.add(route);
+				routeOriginIndexes.add(index);
 			}
 			trainNum = rs.getInt("tid");
 			route = new ArrayList<ReservationStop>();
@@ -108,9 +117,10 @@
 		}
 		route.add(temp);
 	}
-	
+
 	ReservationStop temp = new ReservationStop();
-	
+
+
 	for (int i = 0; i < route.size()-1; i++) {
         if (route.get(i).getArrivalTimeNum() > route.get(i+1).getArrivalTimeNum()) {
             temp = route.get(i);
@@ -121,9 +131,12 @@
 	boolean afterOrigin = false;
 	boolean foundDest = false;
 	int c = 0;
+	int index = 0;
 	for(int j = 0; j < route.size(); j++){
 		if(route.get(j).getStation() == originNum){
 			afterOrigin = true;
+			index = j;
+
 		}
 		if(afterOrigin == true){
 			c++;
@@ -137,15 +150,18 @@
 		route.get(0).setTotalStops(route.size());
 		route.get(0).setNumStops(c);
 		routes.add(route);
+		routeOriginIndexes.add(index);
 	}
-	
-	
-	
+
+
+
 	ArrayList<String> display = new ArrayList<String>();
 	String build;
+	int originIndex;
 	for(int i = 0; i < routes.size(); i++){
-		build ="Departure:" + routes.get(i).get(originNum-1).getDepartureTime() + "   |";
-		build += "   Arrival:" + (routes.get(i).get(destNum-1).getArrivalTime()) + "   |";
+		originIndex = routeOriginIndexes.get(i);
+		build ="Departure:" + routes.get(i).get(originIndex).getDepartureTime() + "   |";
+		build += "   Arrival:" + (routes.get(i).get(originIndex+routes.get(i).get(0).getNumStops()-1).getArrivalTime()) + "   |";
 		Double total = new Double(routes.get(i).get(0).getTotalFare());
 		Double cost = (total/routes.get(i).get(0).getTotalStops());
 		cost *= routes.get(i).get(0).getNumStops();
@@ -164,7 +180,7 @@
 		build += "   Fare:" + numberFormat.format(cost);
 		display.add(build);
 	}
-	
+
 	session.setAttribute("routesForReservation", routes);
 %>
 
@@ -174,27 +190,28 @@
 		<link href="${pageContext.request.contextPath}/styles.css" type="text/css" rel="stylesheet"/>
 		<title>Train App</title>
 	</head>
-	
+
 	<body>
 	<div id="content">
-	<h1>Select an Available time</h1>
+	<%if(display.size()>0){ %><h1>Select an Available time</h1>
+	<%} else {%><h1>No available times</h1><%} %>
 		<form action="reservationConfirm.jsp" method="POST">
 			<p><strong>Transit Lines:</strong></p>
 				<select name="line" id="line">
 					<% for(int i = 0; i < display.size(); i++){  %>
-	
+
 						<option><%="Option " + (i+1) + ") " + display.get(i) %></option>
-						
+
 						<% } %>
 				</select>
-			<br><input type="submit" class="btn" value="Confirm Reservation">
-		</form>
-	
-	</div>
-	
-	<div id="back" class="btn"><a href="reservationForm.jsp">Go back</a></div>
-	
-	</body>
-	
-</html>
+			<%if(display.size()>0) %><br><input type="submit" class="btn" value="Confirm Reservation">
 
+		</form>
+
+	</div>
+
+	<div id="back" class="btn"><a href="reservationForm.jsp">Go back</a></div>
+
+	</body>
+
+</html>

@@ -16,6 +16,7 @@
 	String date = request.getParameter("date");
 	String age = request.getParameter("age");
 	String disabled = request.getParameter("disabled");
+	String round = request.getParameter("round");
 	
 	
 	Class.forName("com.mysql.jdbc.Driver");
@@ -156,6 +157,8 @@
 		}
 		if(disabled.equals("yes")){
 			cost *= 0.50;
+		}if(round.equals("round trip")){
+			cost*=2;
 		}
 		DecimalFormat numberFormat = new DecimalFormat("#");
 		build += "   Fare:" + numberFormat.format(cost);

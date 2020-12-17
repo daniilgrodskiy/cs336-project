@@ -1,18 +1,24 @@
 package daniil;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Stop {
     private Station station; // Primary key (sid)
     private Train train; // Primary key (tid)
 //    private Schedule schedule; // Primary key (schedule)
-    private Date arrivalTime;
-    private Date departureTime;
+    private Timestamp arrivalTime;
+    private Timestamp departureTime;
 
-    public Stop(Station station, Train train, Date arrivalTime, Date departureTime) {
+    public Stop(Station station, Train train, Timestamp arrivalTime, Timestamp departureTime) {
         this.station = station;
         this.train = train;
         this.arrivalTime = arrivalTime;
         this.departureTime = departureTime;
+    }
+    
+ // Use for Origin and Destination
+    public Stop(Station station, Train train) {
+        this.station = station;
+        this.train = train;
     }
 
     public Station getStation() {
@@ -31,19 +37,19 @@ public class Stop {
         this.train = train;
     }
 
-    public Date getArrivalTime() {
+    public Timestamp getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(Date arrivalTime) {
+    public void setArrivalTime(Timestamp arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 
-    public Date getDepartureTime() {
+    public Timestamp getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(Date departureTime) {
+    public void setDepartureTime(Timestamp departureTime) {
         this.departureTime = departureTime;
     }
 }

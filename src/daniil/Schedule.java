@@ -1,27 +1,29 @@
 package daniil;
-import java.sql.Date;
-import java.util.ArrayList;
-//import java.util.Date;
+import java.util.*;
 
 public class Schedule {
     private Train train; // References train
     private String transitLineName;
     private double fare;
-    private int origin; // References origin station
-    private int destination; // References destination station
-    private Date arrivalDatetime;
-    private Date departureDatetime;
+    private Origin origin; // References origin station
+    private Destination destination; // References destination station
     private int travelTime;
     private ArrayList<Stop> stops;
 
-    public Schedule(Train train, String transitLineName, double fare, int origin, int destination, Date arrivalDatetime, Date departureDatetime, int travelTime, ArrayList<Stop> stops) {
+    public Schedule(Train train, String transitLineName, double fare, Origin origin, Destination destination, int travelTime, ArrayList<Stop> stops) {
         this.train = train;
         this.transitLineName = transitLineName;
         this.fare = fare;
         this.origin = origin;
         this.destination = destination;
-        this.arrivalDatetime = arrivalDatetime;
-        this.departureDatetime = departureDatetime;
+        this.travelTime = travelTime;
+        this.stops = stops;
+    }
+    
+    public Schedule(Train train, String transitLineName, double fare, int travelTime, ArrayList<Stop> stops) {
+        this.train = train;
+        this.transitLineName = transitLineName;
+        this.fare = fare;
         this.travelTime = travelTime;
         this.stops = stops;
     }
@@ -50,36 +52,20 @@ public class Schedule {
         this.fare = fare;
     }
 
-    public int getOrigin() {
+    public Origin getOrigin() {
         return origin;
     }
 
-    public void setOrigin(int origin) {
+    public void setOrigin(Origin origin) {
         this.origin = origin;
     }
 
-    public int getDestination() {
+    public Destination getDestination() {
         return destination;
     }
 
-    public void setDestination(int destination) {
+    public void setDestination(Destination destination) {
         this.destination = destination;
-    }
-
-    public Date getArrivalDatetime() {
-        return arrivalDatetime;
-    }
-
-    public void setArrivalDatetime(Date arrivalDatetime) {
-        this.arrivalDatetime = arrivalDatetime;
-    }
-
-    public Date getDepartureDatetime() {
-        return departureDatetime;
-    }
-
-    public void setDepartureDatetime(Date departureDatetime) {
-        this.departureDatetime = departureDatetime;
     }
 
     public int getTravelTime() {

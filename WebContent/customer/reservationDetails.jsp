@@ -90,7 +90,7 @@
 				if(afterOrigin == true){
 					c++;
 				}
-				if(route.get(j).getStation() == destNum){
+				if(route.get(j).getStation() == destNum && afterOrigin){
 					foundDest = true;
 					break;
 				}
@@ -141,7 +141,7 @@
 		if(afterOrigin == true){
 			c++;
 		}
-		if(route.get(j).getStation() == destNum){
+		if(route.get(j).getStation() == destNum && afterOrigin){
 			foundDest = true;
 			break;
 		}

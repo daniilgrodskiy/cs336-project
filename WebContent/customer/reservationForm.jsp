@@ -15,6 +15,7 @@
 		String station = rs.getString("station_name");
 		ll.add(station);
 	}
+
 %>
 
 <!DOCTYPE html>
@@ -27,7 +28,7 @@
 	<body>
 	<div id="content">
 	<h1>Browse Schedules</h1>
-		<form action="reservationDetails.jsp" method="POST">
+		<form action="reservationDetails.jsp" method="POST" >
 			<p><strong>Origin:</strong></p>
 				<select name="origin" id="origin">
 					<% for(int i = 0; i < ll.size(); i++){  %>
@@ -45,7 +46,7 @@
 						<% } %>
 				</select>
 			<p><strong>Date(YYYY-MM-DD):</strong></p>
-				<input type="date" name="date" id="reservationDate" placeholder="YYYY-MM-DD"></input>
+				<input type="date" name="date" id="reservationDate" placeholder="YYYY-MM-DD" required></input>
 			<p><strong>Age of Rider:</strong></p>
 				<select name="age" id="age">
 						<option>adult</option>

@@ -11,17 +11,30 @@
 
 
 <%
-	int origin = Integer.parseInt(request.getParameter("origin")); 
-	int dest = Integer.parseInt(request.getParameter("dest")); 
+	String originName = request.getParameter("origin");
+	String destName = request.getParameter("dest");
     String date = request.getParameter("date");
     String sort = request.getParameter("sort");
     
     Class.forName("com.mysql.jdbc.Driver");
     Connection con = DriverManager.getConnection("jdbc:mysql://trainappdb.cmeqwsu4k6hd.us-east-2.rds.amazonaws.com:3306/project", "admin", "Rutgers1");
     
-    
     //returns all trains that match the search and sort conditions
     Statement st = con.createStatement();
+    ResultSet temp1 = st.executeQuery("select * from station where station_name = '" + originName + "'");
+    int origin = -1;
+    if(temp1.next()){
+    	origin = temp1.getInt("sid");
+    }
+    temp1.close();
+    
+    ResultSet temp2 = st.executeQuery("select * from station where station_name = '" + destName + "'");
+    int dest = -1;
+    if(temp2.next()){
+    	dest = temp2.getInt("sid");
+    }
+    temp2.close();
+    
     ResultSet rs;
     
     if(sort.equals("fare")){
@@ -89,6 +102,8 @@
         t.addStations(stops);
         s.close();
     }
+    
+    System.out.println("\n\n\n\n----------\nOrig is " + origin + "\n Dest is " + dest);
 
     
 %>
@@ -104,8 +119,15 @@
 	<body>
 	
 	<div id="content" style="width:90%!important">
-	<h1>Trains</h1>
+	<h1>Browse Schedules</h1>
 	
+	<!-- 
+		<% if(ll.size() < 1){ %>
+		<p>There are no trains with these specifications.</p>
+	
+	<%} else{%>
+	 -->
+
 	<% for(int i = 0; i < ll.size(); i++){  %>
 	<p><strong>Train <%=String.valueOf(ll.get(i).getTid()) %></strong></p>
 	
@@ -158,13 +180,14 @@
 	
 	<%} %>
 	
+	
 
 	<br/>
 	
 	<form action="searchResults.jsp" method="POST">
 	<div style="display:none">
-	<input type="text" id="origin" name="origin" value="<%=origin %>"><br>
-	<input type="text" id="dest" name="dest" value="<%=dest %>"><br>
+	<input type="text" id="origin" name="origin" value="<%=originName %>"><br>
+	<input type="text" id="dest" name="dest" value="<%=destName %>"><br>
 	<input type="date" id="date" name="date" value="<%=date %>"><br>
 	</div>
 	<button type="submit" name="sort" value="fare">Sort by fare (low to high)</button>
@@ -172,8 +195,8 @@
 	
 	<form action="searchResults.jsp" method="POST">
 	<div style="display:none">
-	<input type="hidden" id="origin" name="origin" value="<%=origin %>"><br>
-	<input type="hidden" id="dest" name="dest" value="<%=dest %>"><br>
+	<input type="hidden" id="origin" name="origin" value="<%=originName %>"><br>
+	<input type="hidden" id="dest" name="dest" value="<%=destName %>"><br>
 	<input type="hidden" id="date" name="date" value="<%=date %>"><br>
 	</div>
 	<button type="submit" name="sort" value="depart">Sort by departure time (soonest to latest)</button>
@@ -181,8 +204,8 @@
 	
 	<form action="searchResults.jsp" method="POST">
 	<div style="display:none">
-	<input type="hidden" id="origin" name="origin" value="<%=origin %>"><br>
-	<input type="hidden" id="dest" name="dest" value="<%=dest %>"><br>
+	<input type="hidden" id="origin" name="origin" value="<%=originName %>"><br>
+	<input type="hidden" id="dest" name="dest" value="<%=destName %>"><br>
 	<input type="hidden" id="date" name="date" value="<%=date %>"><br>
 	</div>
 	<button type="submit" name="sort" value="arriv">Sort by arrival time (soonest to latest)</button>
@@ -191,6 +214,8 @@
 	
 	
 	<br/>
+	
+	<!--  <%} %>-->
 	
 	</div>
 	

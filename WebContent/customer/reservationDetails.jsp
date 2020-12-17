@@ -35,12 +35,12 @@
 	}
 	
 	//rs = st.executeQuery("select * from stop s, train t, station z where s.sid=z.sid and t.tid=s.tid and (z.sid=" + originNum + " or z.sid = " + destNum + ") group by transit_line_name");
-	//ResultSet rs= st.executeQuery("select *, CAST(arrival_datetime AS DATE) as d from schedule where origin='" + origin + "' and destination='" + dest + "' and CAST(arrival_datetime AS DATE)='" + date + "'");
+	rs= st.executeQuery("select transit_line_name, CAST(arrival_datetime AS DATE) as d from schedule where origin='" + origin + "' and destination='" + dest + "' and CAST(arrival_datetime AS DATE)='" + date + "'");
 	
-	/*LinkedList<String> transitLines = new LinkedList<String>();
+	LinkedList<String> transitLines = new LinkedList<String>();
 	while(rs.next()){
 		transitLines.add(rs.getString("transit_line_name"));
-	}*/
+	}
 	
 	rs = st.executeQuery("select * from schedule");
 	
@@ -52,14 +52,14 @@
 	}
 	
 	
-	rs = st.executeQuery("select * from stop s where CAST(arrival_time AS DATE)='" + date + "'");
+	rs = st.executeQuery("select * from stop where CAST(arrival_time AS DATE)='" + date + "'");
 	
 	ArrayList<ReservationStop> route = new ArrayList<ReservationStop>();
 	ArrayList<ArrayList<ReservationStop>> routes = new ArrayList<ArrayList<ReservationStop>>();
 	int trainNum = -1;
 	while(rs.next()){
 		if(trainNum == -1){
-	trainNum = rs.getInt("tid");
+			trainNum = rs.getInt("tid");
 		}
 		if(rs.getInt("tid") != trainNum){
 			ReservationStop temp = new ReservationStop();
@@ -102,6 +102,7 @@
 	
 	for(int i = 0; i < routes.size(); i++){
 		boolean afterOrigin = false;
+		boolean foundDest = false;
 		int c = 0;
 		for(int j = 0; j < routes.get(i).size(); j++){
 			if(routes.get(i).get(j).getStation() == originNum){
@@ -111,11 +112,17 @@
 				c++;
 			}
 			if(routes.get(i).get(j).getStation() == destNum){
+				foundDest = true;
 				break;
 			}
 		}
-		routes.get(i).get(0).setTotalStops(routes.get(i).size());
-		routes.get(i).get(0).setNumStops(c);
+		if(foundDest){
+			routes.get(i).get(0).setTotalStops(routes.get(i).size());
+			routes.get(i).get(0).setNumStops(c);
+		}
+		else{
+			routes.remove(i);
+		}
 	}
 	
 	

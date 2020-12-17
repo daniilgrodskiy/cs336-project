@@ -121,7 +121,7 @@
 	</table>
 	
 	<form action="reservationDelete.jsp" method="POST">
-		<input type="text" name="IDForDelete" id="IDForDelete" placeholder="Enter Reservation ID"></input>
+		<input type="text" name="IDForDelete" id="IDForDelete" placeholder="Enter Reservation ID" required></input>
 		<input type="submit" class="btn" value="Delete Reservation">
 	</form>
 	

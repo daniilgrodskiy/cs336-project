@@ -173,33 +173,26 @@ input, button {
 }
 
 .name {
-	border-radius: 20px;
-	background: #a9adbd;
-	font-weight: 700;
-	padding: 20px;
-	font-size: 30px;
-	color: white;
-}
-.date {
-	margin-top: 20px;
-	border-radius: 20px;
-	background: #a1d6ea;
-	font-weight: 200;
-	padding: 20px;
+	font-weight: 300;
 	font-size: 20px;
 	color: black;
 }
 
-
-.fare {
-	margin-top: 20px;
-	border-radius: 20px;
-	background: #008e00;
-	font-weight: 700;
-	padding: 20px;
+.question {
+	font-weight: 200;
 	font-size: 20px;
-	color: white;
+	color: black;
 }
+
+.answer {
+	font-weight: 200;
+	font-size: 20px;
+	color: black;
+}
+.hide {
+	display:none;
+}
+
 
 a {
 	text-decoration: none;
@@ -262,4 +255,14 @@ input, option, select {
 	appearance: none; 
 	border-radius: 10px;
 	padding: 10px;
+}
+
+textarea {
+	margin-top: 10px;
+	border: none;
+	font-size: 20px;
+	appearance: none; 
+	border-radius: 10px;
+	padding: 10px;
+	width: 98%;
 }

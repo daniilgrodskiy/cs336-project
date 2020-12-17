@@ -8,26 +8,10 @@
  		Class.forName("com.mysql.jdbc.Driver");
 		Connection con = DriverManager.getConnection("jdbc:mysql://trainappdb.cmeqwsu4k6hd.us-east-2.rds.amazonaws.com:3306/project", "admin", "Rutgers1");
 		
-		// Create a SQL statement
-		Statement stmt = con.createStatement();
+		String filterQuery = request.getParameter("filterQuery");
 		
-		// Make a SELECT query from the sells table with the price range specified by the 'price' parameter at the index.jsp
-		String query = "select * from schedule;"; 
-		
-		// Run the query against the database.
-		ResultSet result = stmt.executeQuery(query);
-		
-		SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy HH:mm");
-		SimpleDateFormat COMPARE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
-		
-		String filterOrigin = request.getParameter("filterOrigin");
-		String filterDestination = request.getParameter("filterDestination");
-		
-		String filterDate = request.getParameter("filterDate");
-		
-		Timestamp filterDateTimestamp = Timestamp.valueOf("2020-12-20 10:10:10.0");
-		if (filterDate != null) {
-			filterDateTimestamp = new Timestamp(COMPARE_FORMAT.parse(filterDate).getTime());
+		if (filterQuery == null) {
+			filterQuery = "";
 		}
 			
 %>
@@ -35,7 +19,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link href="./schedules.css" type="text/css" rel="stylesheet" />
+		<link href="./faq.css" type="text/css" rel="stylesheet" />
 		<title>Train App</title>
 	</head>
    <body>
@@ -53,10 +37,99 @@
 			</div>
    		</div>
    		
+   		<div style="text-align:center;">
+	   		<form action="./faq.jsp">
+		        <input class="btn" type=submit value="Show All Questions">
+	        </form>
+        </div>
+   		
+   		
 	   <div id="content">
 	   
-	   		
-	   	   
+	   		<%
+				// FAQ
+				Statement stmt = con.createStatement();
+				String faqQuery = "select * from faq";
+				ResultSet faqResult = stmt.executeQuery(faqQuery);
+				
+				List<Faq> faqs = new ArrayList<Faq>();
+				
+				while (faqResult.next()) {
+					// Customer
+					String customerQuery = 
+					  			"select * from customer" +
+					  			" where email = '" + faqResult.getString("email") + "'";
+					
+					stmt = con.createStatement();
+					ResultSet customerResult = stmt.executeQuery(customerQuery);
+					customerResult.next();
+					
+					Customer customer = new Customer(
+						customerResult.getString("email"),
+						customerResult.getString("username"),
+						customerResult.getString("first_name"),
+						customerResult.getString("last_name")
+					);
+					
+					Faq faq = new Faq(
+						faqResult.getInt("fid"),
+						customer,
+						faqResult.getString("question"),
+						faqResult.getString("answer")
+					);
+					
+					faqs.add(faq);
+				}
+				
+		        // FILTER BAR
+		        %>
+		        <div class="filter-bar" >
+			        <form action="./faq.jsp">
+				        <div class="search-bar flex">
+				        	<input type="text" name="filterQuery" placeholder="Search questions...">
+				        	 <input class="btn" type=submit value="Search">
+				        </div>
+			        </form>
+			    </div>
+			    
+		<%
+		for (Faq f : faqs) {
+			int fid = f.getFid();
+			String firstName = f.getCustomer().getFirstName();
+			String lastName = f.getCustomer().getLastName();
+			String question = f.getQuestion();
+			String answer = f.getAnswer();
+			
+			if (filterQuery != null && !filterQuery.equals("") && !question.contains(filterQuery)) {
+				continue;
+			}
+		%>
+			<form action="./updateFaq.jsp">
+				<div class="card">
+					<input type="text" name="fid" value="<%=fid%>" class="hide">
+					<div class="question">
+						<b>Question:</b>
+					</div>
+					<div class="question">
+						<%=question%><span class="name"> - <%=firstName%> <%=lastName%></span>
+					</div>
+					
+					<div style="margin-top:20px;"class="answer">
+					<b>Answer:</b>
+					</div>
+					<div>
+						<textarea name="answer"><%=answer%></textarea>
+					</div>
+					<input class="btn" type="submit" value="Save">
+				</div>
+				
+			</form>
+			
+		<%
+		}
+		
+		con.close();
+		%>   	   
 	   </div>
    </body>
 </html>

@@ -8,15 +8,6 @@
  		Class.forName("com.mysql.jdbc.Driver");
 		Connection con = DriverManager.getConnection("jdbc:mysql://trainappdb.cmeqwsu4k6hd.us-east-2.rds.amazonaws.com:3306/project", "admin", "Rutgers1");
 		
-		// Create a SQL statement
-		Statement stmt = con.createStatement();
-		
-		// Make a SELECT query from the sells table with the price range specified by the 'price' parameter at the index.jsp
-		String query = "select * from schedule;"; 
-		
-		// Run the query against the database.
-		ResultSet result = stmt.executeQuery(query);
-		
 		SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 		SimpleDateFormat COMPARE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 		
@@ -62,7 +53,7 @@
 	   
 	   		<%
 				// Reservation
-				stmt = con.createStatement();
+				Statement stmt = con.createStatement();
 				String reservationQuery = "select * from reservation";
 				ResultSet reservationResult = stmt.executeQuery(reservationQuery);
 				

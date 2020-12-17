@@ -1,7 +1,6 @@
-package com.cs336.pkg;
-
+package com.cs336.eliza;
 import java.util.Date;
-
+import java.util.LinkedList;
 
 public class Trains {
 	int tid; 
@@ -12,6 +11,7 @@ public class Trains {
 	Date depart; 
 	int fare;
 	int travel;
+	LinkedList<Station> stations;
 	
 	public Trains(int tid, String tran, int origin, int dest, Date arriv, Date depart, int fare, int travel) {
 		this.tid = tid;
@@ -22,6 +22,10 @@ public class Trains {
 		this.depart = depart;
 		this.fare = fare;
 		this.travel = travel;
+	}
+	
+	public void addStations(LinkedList<Station> stations) {
+		this.stations = stations;
 	}
 	
 	public Trains() {
@@ -51,6 +55,9 @@ public class Trains {
 	}
 	public int getTravel() {
 		return this.travel;
+	}	
+	public LinkedList<Station> getStations() {
+		return this.stations;
 	}	
 	
 	public static void main (String args[]){

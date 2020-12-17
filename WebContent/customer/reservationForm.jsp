@@ -26,7 +26,7 @@
 	
 	<body>
 	<div id="content">
-	<h1>Browse Schedules</h1>
+	<h1>Find Routes</h1>
 		<form action="reservationDetails.jsp" method="POST">
 			<p><strong>Origin:</strong></p>
 				<select name="origin" id="origin">

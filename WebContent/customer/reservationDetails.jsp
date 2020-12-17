@@ -89,6 +89,17 @@
 		route.add(temp);
 	}
 	
+	ReservationStop temp = new ReservationStop();
+	
+	for (int i = 0; i < route.size()-1; i++) {
+		        if (route.get(i).getArrivalTimeNum() > route.get(i+1).getArrivalTimeNum()) {
+		            temp = route.get(i);
+		            route.set(i, route.get(i + 1));
+		            route.set(i + 1, temp);
+		        }
+		    }
+	routes.add(route);
+	
 	for(int i = 0; i < routes.size(); i++){
 		boolean afterOrigin = false;
 		int c = 0;

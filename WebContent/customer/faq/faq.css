@@ -191,6 +191,15 @@ input, button {
 	display:none;
 }
 
+.new-question {
+	background: #cde7d6;
+	border-radius: 20px;
+	margin: auto;
+	margin-top: 50px;
+	margin-left: 50px;
+	margin-right: 50px;
+	padding: 20px;
+}
 
 a {
 	text-decoration: none;

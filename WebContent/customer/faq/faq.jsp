@@ -2,8 +2,9 @@
 <%@ page import="javax.servlet.http.*,javax.servlet.*, java.text.SimpleDateFormat"%>
 
 <%	
- 		if (session.getAttribute("user") == null) 
+ 		if (session.getAttribute("user") == null) {
 			response.sendRedirect("../success.jsp");
+ 		}
  
  		Class.forName("com.mysql.jdbc.Driver");
 		Connection con = DriverManager.getConnection("jdbc:mysql://trainappdb.cmeqwsu4k6hd.us-east-2.rds.amazonaws.com:3306/project", "admin", "Rutgers1");
@@ -92,10 +93,21 @@
 			        <form action="./faq.jsp">
 				        <div class="search-bar flex">
 				        	<input type="text" name="filterQuery" placeholder="Search questions...">
-				        	 <input class="btn" type=submit value="Search">
+				        	<input class="btn" type=submit value="Search">
 				        </div>
 			        </form>
 			    </div>
+			    
+			    
+				<form action="./addNewQuestion.jsp">
+				    <div class="new-question">
+				     		<input type="text" name="email" value="<%=session.getAttribute("userEmail")%>" class="hide">
+				     		<div style="font-size: 30px; font-weight: 200;">Question:</div>
+				        	<textArea name="question" placeholder="What is your question?"></textArea>
+				        	<input type=submit value="Add New Question">
+				    </div>
+			    </form>
+		       
 			    
 		<%
 		for (Faq f : faqs) {

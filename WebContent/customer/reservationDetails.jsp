@@ -65,13 +65,32 @@
 			ReservationStop temp = new ReservationStop();
 			
 			for (int i = 0; i < route.size()-1; i++) {
-				        if (route.get(i).getArrivalTimeNum() > route.get(i+1).getArrivalTimeNum()) {
-				            temp = route.get(i);
-				            route.set(i, route.get(i + 1));
-				            route.set(i + 1, temp);
-				        }
-				    }
-			routes.add(route);
+		        if (route.get(i).getArrivalTimeNum() > route.get(i+1).getArrivalTimeNum()) {
+		            temp = route.get(i);
+		            route.set(i, route.get(i + 1));
+		            route.set(i + 1, temp);
+		        }
+		    }
+			boolean afterOrigin = false;
+			boolean foundDest = false;
+			int c = 0;
+			for(int j = 0; j < route.size(); j++){
+				if(route.get(j).getStation() == originNum){
+					afterOrigin = true;
+				}
+				if(afterOrigin == true){
+					c++;
+				}
+				if(route.get(j).getStation() == destNum){
+					foundDest = true;
+					break;
+				}
+			}
+			if(foundDest){
+				route.get(0).setTotalStops(route.size());
+				route.get(0).setNumStops(c);
+				routes.add(route);
+			}
 			trainNum = rs.getInt("tid");
 			route = new ArrayList<ReservationStop>();
 		}
@@ -92,37 +111,31 @@
 	ReservationStop temp = new ReservationStop();
 	
 	for (int i = 0; i < route.size()-1; i++) {
-		        if (route.get(i).getArrivalTimeNum() > route.get(i+1).getArrivalTimeNum()) {
-		            temp = route.get(i);
-		            route.set(i, route.get(i + 1));
-		            route.set(i + 1, temp);
-		        }
-		    }
-	routes.add(route);
-	
-	for(int i = 0; i < routes.size(); i++){
-		boolean afterOrigin = false;
-		boolean foundDest = false;
-		int c = 0;
-		for(int j = 0; j < routes.get(i).size(); j++){
-			if(routes.get(i).get(j).getStation() == originNum){
-				afterOrigin = true;
-			}
-			if(afterOrigin == true){
-				c++;
-			}
-			if(routes.get(i).get(j).getStation() == destNum){
-				foundDest = true;
-				break;
-			}
+        if (route.get(i).getArrivalTimeNum() > route.get(i+1).getArrivalTimeNum()) {
+            temp = route.get(i);
+            route.set(i, route.get(i + 1));
+            route.set(i + 1, temp);
+        }
+    }
+	boolean afterOrigin = false;
+	boolean foundDest = false;
+	int c = 0;
+	for(int j = 0; j < route.size(); j++){
+		if(route.get(j).getStation() == originNum){
+			afterOrigin = true;
 		}
-		if(foundDest){
-			routes.get(i).get(0).setTotalStops(routes.get(i).size());
-			routes.get(i).get(0).setNumStops(c);
+		if(afterOrigin == true){
+			c++;
 		}
-		else{
-			routes.remove(i);
+		if(route.get(j).getStation() == destNum){
+			foundDest = true;
+			break;
 		}
+	}
+	if(foundDest){
+		route.get(0).setTotalStops(route.size());
+		route.get(0).setNumStops(c);
+		routes.add(route);
 	}
 	
 	
@@ -130,8 +143,8 @@
 	ArrayList<String> display = new ArrayList<String>();
 	String build;
 	for(int i = 0; i < routes.size(); i++){
-		build ="Departure:" + routes.get(i).get(0).getDepartureTime() + "   |";
-		build += "   Arrival:" + (routes.get(i).get(routes.get(i).size()-1).getArrivalTime()) + "   |";
+		build ="Departure:" + routes.get(i).get(originNum-1).getDepartureTime() + "   |";
+		build += "   Arrival:" + (routes.get(i).get(destNum-1).getArrivalTime()) + "   |";
 		Double total = new Double(routes.get(i).get(0).getTotalFare());
 		Double cost = (total/routes.get(i).get(0).getTotalStops());
 		cost *= routes.get(i).get(0).getNumStops();
@@ -181,5 +194,4 @@
 	</body>
 	
 </html>
-
 

@@ -67,6 +67,7 @@
 	
 	rs.close();
 	
+	
 	 
     ResultSet r; 
   	r = st.executeQuery("select sid, station_name from station");
@@ -85,17 +86,22 @@
     for(int k = 0;  k < ll.size(); k++){
         ResultSet s;
         Trains t = ll.get(k);
+        System.out.println("\nTrain is train id " + t.getTid());
         
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
         String d = sdf.format(t.getArriv());
         
-        s = st.executeQuery("select station.sid, station_name from stop join station where stop.sid = station.sid and tid = '" + t.getTid() + "' and transit_line_name ='" + t.getTran() + "' and arrival_time between'"+ sdf.format(t.getArriv()) +"' and '" + sdf.format(t.getDepart()) + "' ORDER BY arrival_time");      
+        s = st.executeQuery("select station.sid, station_name from stop join station where stop.sid = station.sid and tid = '" + t.getTid() + "' and transit_line_name ='" + t.getTran() + "' and arrival_time between'"+ sdf.format(t.getDepart()) + "' and '"+ sdf.format(t.getArriv()) + "' ORDER BY arrival_time");      
+        //System.out.println("attempted query: select station.sid, station_name from stop join station where stop.sid = station.sid and tid = '" + t.getTid() + "' and transit_line_name ='" + t.getTran() + "' and arrival_time between'"+ sdf.format(t.getArriv()) +"' and '" + sdf.format(t.getDepart()) + "' ORDER BY arrival_time");
+        
         LinkedList<Station> stops = new LinkedList<Station>();
 
         while(s.next()){
+        	
         	int sid = s.getInt("sid");
         	String station_name = s.getString("station_name");
         	Station station = new Station(sid, station_name);
+        	//System.out.println("\nGoes to station " + station_name);
         	stops.add(station);
         }
         
@@ -103,8 +109,8 @@
         s.close();
     }
     
-    System.out.println("\n\n\n\n----------\nOrig is " + origin + "\n Dest is " + dest);
-
+    //System.out.println("\n\n\n\n----------\nOrig is " + origin + "\n Dest is " + dest);
+	
     
 %>
 
@@ -121,12 +127,12 @@
 	<div id="content" style="width:90%!important">
 	<h1>Browse Schedules</h1>
 	
-	<!-- 
+	 
 		<% if(ll.size() < 1){ %>
 		<p>There are no trains with these specifications.</p>
 	
 	<%} else{%>
-	 -->
+	 
 
 	<% for(int i = 0; i < ll.size(); i++){  %>
 	<p><strong>Train <%=String.valueOf(ll.get(i).getTid()) %></strong></p>
@@ -136,8 +142,8 @@
 		<th>Train Line</th>
 		<th>Train origin</th>
 		<th>Train destination</th>
-		<th>Train arrival time</th>
 		<th>Train Departure Time</th>
+		<th>Train arrival time</th>
 		<th>Train fare</th>
 		<th>Travel time (hours)</th>
 		<th>Train stations</th>
@@ -160,8 +166,8 @@
 		
 		<td><%=orig_name%></td>
 		<td><%=dest_name %></td>
-		<td><%=String.valueOf(ll.get(i).getArriv()) %></td>
 		<td><%=String.valueOf(ll.get(i).getDepart()) %></td>
+		<td><%=String.valueOf(ll.get(i).getArriv()) %></td>
 		<td><%=String.valueOf(ll.get(i).getFare()) %></td>
 		<td><%=String.valueOf(ll.get(i).getTravel()) %></td>
 		<td>
@@ -215,7 +221,7 @@
 	
 	<br/>
 	
-	<!--  <%} %>-->
+	 <%} %>
 	
 	</div>
 	

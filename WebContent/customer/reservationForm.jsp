@@ -58,6 +58,11 @@
 						<option>no</option>
 						<option>yes</option>
 				</select>
+			<p><strong>Would you like a round trip, or one way?:</strong></p>
+				<select name="round" id="round">
+						<option>one-way</option>
+						<option>round trip</option>
+				</select>
 			<br><input type="submit" class="btn" value="Find Routes">
 		</form>
 

@@ -33,7 +33,7 @@ try {
 	
 	// the username will now be stored in the session
 	session.setAttribute("user", newUsername); 
-
+	session.setAttribute("userType", "customer"); 
 	response.sendRedirect("success.jsp");
 } catch(Exception e) {
 	out.print(e);

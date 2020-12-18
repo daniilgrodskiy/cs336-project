@@ -11,7 +11,7 @@
 
 <p>You are not logged in</p>
 
-<p><a href="login.jsp">Please Login</a></p>
+<p><a href="../login.jsp">Please Login</a></p>
 
 <%} else {
  	System.out.println(session.getAttribute("userType"));

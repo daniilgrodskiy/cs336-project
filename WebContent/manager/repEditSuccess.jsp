@@ -6,8 +6,14 @@
 <%
 	String operation = request.getParameter("operation"); 
 	System.out.println("\n\n\n\n\n\n\n----------\nOperation is: " + operation + "\n------\n\n\n\n");
-	int ssn = Integer.parseInt(request.getParameter("Social Security Number"));
-    
+	int ssn = 0;
+	try{
+	    ssn = Integer.parseInt(request.getParameter("Social Security Number"));
+    }catch(Exception e){
+        ssn = -1;
+    }
+
+
     Class.forName("com.mysql.jdbc.Driver");
     Connection con = DriverManager.getConnection("jdbc:mysql://trainappdb.cmeqwsu4k6hd.us-east-2.rds.amazonaws.com:3306/project", "admin", "Rutgers1");
     
@@ -19,11 +25,16 @@
     //2 means duplicate item
     //3 means rep does not exist to be edited
     //4 means attempted to change ssn to an ssn already in db
+    //5 means no ssn entered
     int success = -1;
     if(operation.equals("delete")){
-    	st.executeUpdate("delete from reps where ssn='" + ssn + "'");
-    	System.out.println("\n\n\n\n-----------Attempted: delete from reps where ssn='" + ssn + "'");
-    	success = 1;
+        if(ssn != -1){
+            st.executeUpdate("delete from reps where ssn='" + ssn + "'");
+            System.out.println("\n\n\n\n-----------Attempted: delete from reps where ssn='" + ssn + "'");
+            success = 1;
+        }else{
+            success = 5;
+        }
     } else if(operation.equals("add")){
     	ResultSet rs;
     	rs = st.executeQuery("select * from reps where ssn='" + ssn + "'");
@@ -110,7 +121,9 @@
 	   		<p>There exists no customer representative with social security number <%=ssn %>. Please try with another social security number.</p>
 	   <%} else if(success == 4){ %>
 	   		<p>There already exists a customer representative with that social security number. You cannot change a user's social security number to be the same as someone else's. Please try with another social security number.</p>
-	   <%} %>
+	   <%} else if(success == 5){ %>
+            <p>Please enter a social security number.</p>
+       <%} %>
 	   </div>
 	   
 	   	<div id="back" class="btn"><a href="dashboard.jsp">Go back</a></div>

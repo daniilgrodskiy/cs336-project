@@ -13,6 +13,8 @@
 		   <p><a href="salesReport.jsp">Obtain monthly sales report</a></p>
 		   <p><a href="reservationList.jsp">Obtain list of reservations</a></p>
 		   <p><a href="revenueListing.jsp">Listing of revenue</a></p>
+		   <p><a href="bestCustomer.jsp">Find Best Customer</a></p
+		   <p><a href="topFiveLines.jsp">Top Five Lines</a></p>
 		   <p><a href='../logout.jsp'>Log out</a></p>
 	   </div>
    </body>

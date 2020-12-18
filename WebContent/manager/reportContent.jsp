@@ -3,6 +3,14 @@
 <%@ page import ="java.sql.*" %>
 <%@ page import ="java.lang.Integer.*" %>
 
+
+<%
+if (session.getAttribute("user") == null || session.getAttribute("userType") == null || !session.getAttribute("userType").equals("admin")) {
+	response.sendRedirect("../success.jsp");
+}
+%>
+
+
 <%
 	int month = Integer.parseInt(request.getParameter("month")); 
 

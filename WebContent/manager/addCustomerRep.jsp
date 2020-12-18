@@ -2,6 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ page import ="java.sql.*" %>
 
+<%
+if (session.getAttribute("user") == null || session.getAttribute("userType") == null || !session.getAttribute("userType").equals("admin")) {
+	response.sendRedirect("../success.jsp");
+}
+%>
 
 <!DOCTYPE html>
 <html>

@@ -3,6 +3,13 @@
 <%@ page import ="java.sql.*" %>
 <%@ page import ="java.lang.Integer.*" %>
 
+
+<%
+if (session.getAttribute("user") == null || session.getAttribute("userType") == null || !session.getAttribute("userType").equals("admin")) {
+	response.sendRedirect("../success.jsp");
+}
+%>
+
 <%
 	String operation = request.getParameter("operation"); 
 	System.out.println("\n\n\n\n\n\n\n----------\nOperation is: " + operation + "\n------\n\n\n\n");

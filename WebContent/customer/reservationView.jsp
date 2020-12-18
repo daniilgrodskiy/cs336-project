@@ -58,6 +58,10 @@
 		
 	}
 	
+	rs.close();
+	
+	
+	
 %>
 
 <!DOCTYPE html>
@@ -79,10 +83,31 @@
 		<th>Last Name</th>
 		<th>Transit Line Name</th>
 		<th>Total fare</th>
+		<th>Reservation Origin</th>
+		<th>Reservation Destination</th>
 		<th>Date</th>
 	</tr>
 	
-	<%for (int i = 0; i < reservations.size(); i++){%>
+	<%for (int i = 0; i < reservations.size(); i++){
+	
+	//gets origin and destination station names
+		ResultSet o = st.executeQuery("select station_name from origin o join station s where o.sid = s.sid and o.rid = '" + reservations.get(i).getRid() + "';");
+		String origin = "";
+		if(o.next()){
+			origin = o.getString("station_name");
+		}
+		o.close();
+		
+		ResultSet d = st.executeQuery("select station_name from destination d join station s where d.sid = s.sid and d.rid = '" + reservations.get(i).getRid() + "';");
+		String dest = "";
+		if(d.next()){
+			dest = d.getString("station_name");
+		}
+		d.close();
+	//
+	
+	
+	%>
 		<tr>
 		<td><%=reservations.get(i).getRid() %></td>
 		<td><%=reservations.get(i).getEmail() %></td>
@@ -90,6 +115,8 @@
 		<td><%=reservations.get(i).getLname() %></td>
 		<td><%=reservations.get(i).getTrans() %></td>
 		<td><%=reservations.get(i).getFare() %></td>
+		<td><%=origin %></td>
+		<td><%=dest %></td>
 		<td><%=reservations.get(i).getDate() %></td>
 		</tr>
 	<%} %>
@@ -104,10 +131,30 @@
 		<th>Last Name</th>
 		<th>Transit Line Name</th>
 		<th>Total fare</th>
+		<th>Reservation Origin</th>
+		<th>Reservation Destination</th>
 		<th>Date</th>
 	</tr>
 	
-	<%for (int i = 0; i < pastReservations.size(); i++){%>
+	<%for (int i = 0; i < pastReservations.size(); i++){
+	
+		//gets origin and destination station names
+		ResultSet o = st.executeQuery("select station_name from origin o join station s where o.sid = s.sid and o.rid = '" + pastReservations.get(i).getRid() + "';");
+		String origin = "";
+		if(o.next()){
+			origin = o.getString("station_name");
+		}
+		o.close();
+		
+		ResultSet d = st.executeQuery("select station_name from destination d join station s where d.sid = s.sid and d.rid = '" + pastReservations.get(i).getRid() + "';");
+		String dest = "";
+		if(d.next()){
+			dest = d.getString("station_name");
+		}
+		d.close();
+	//
+	
+	%>
 		<tr>
 		<td><%=pastReservations.get(i).getRid() %></td>
 		<td><%=pastReservations.get(i).getEmail() %></td>
@@ -115,6 +162,8 @@
 		<td><%=pastReservations.get(i).getLname() %></td>
 		<td><%=pastReservations.get(i).getTrans() %></td>
 		<td><%=pastReservations.get(i).getFare() %></td>
+		<td><%=origin %></td>
+		<td><%=dest %></td>
 		<td><%=pastReservations.get(i).getDate() %></td>
 		</tr>
 	<%} %>

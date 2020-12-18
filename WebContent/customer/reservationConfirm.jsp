@@ -32,9 +32,29 @@
 	}
 	int fare = Integer.parseInt(line.substring(end, line.length()));
 	
+	rs.close();
+	
+	String originName=request.getParameter("origin");
+	ResultSet temp1 = st.executeQuery("select * from station where station_name = '" + originName + "'");
+    int origin = -1;
+    if(temp1.next()){
+    	origin = temp1.getInt("sid");
+    }
+    temp1.close();
+    
+	String destName = request.getParameter("dest");
+	ResultSet temp2 = st.executeQuery("select * from station where station_name = '" + destName + "'");
+    int dest = -1;
+    if(temp2.next()){
+    	dest = temp2.getInt("sid");
+    }
+    temp2.close();
+	
 	st.executeUpdate("insert into `reservation` (`rid`,`date`,`total_fare`) VALUES (" + id + ",'" + insertDate + "'," + fare + ")");
 	st.executeUpdate("insert into `makes` (`rid`,`is_past`,`email`) VALUES (" + id + ",'" + 0 + "','" + session.getAttribute("userEmail") + "')");
 	st.executeUpdate("insert into `has` (`rid`,`tid`) VALUES (" + id + "," + res.getTrain() + ")");
+	st.executeUpdate("insert into origin(departure_time, rid, sid) values ('2000-12-12', '" + id +"', '" + origin + "')");
+	st.executeUpdate("insert into destination(arrival_time, rid, sid) values ('2000-12-12', '" + id +"', '" + dest + "')");
 	
 %>
 

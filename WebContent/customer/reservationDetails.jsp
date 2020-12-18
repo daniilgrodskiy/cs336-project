@@ -204,8 +204,9 @@
 
 						<% } %>
 				</select>
-			<input type="hidden" name="origin" value="<%=origin %>"/>
-			<input type="hidden" name="dest" value="<%=dest %>"/>
+				<input type="hidden" name="origin" value="<%=origin %>"/>
+				<input type="hidden" name="dest" value="<%=dest %>"/>
+			
 			<%if(display.size()>0) %><br><input type="submit" class="btn" value="Confirm Reservation">
 
 		</form>

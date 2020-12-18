@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import ="java.sql.*" %>
 <%@ page import ="java.lang.Integer.*" %>
-<%@ page import ="java.util.Calendar" %>
+<%@ page import ="java.time.LocalDate" %>
 <%@ page import ="java.util.HashMap"%>
 
 
@@ -14,8 +14,8 @@ if (session.getAttribute("user") == null || session.getAttribute("userType") == 
 
 
 <%
-	//LocalDate currentdate = LocalDate.now();
-	int month = Calendar.getInstance().get(Calendar.MONTH)+1;
+	LocalDate currentdate = LocalDate.now();
+	int month = currentdate.getMonthValue();
 
 	Class.forName("com.mysql.jdbc.Driver");
 	Connection con = DriverManager.getConnection("jdbc:mysql://trainappdb.cmeqwsu4k6hd.us-east-2.rds.amazonaws.com:3306/project", "admin", "Rutgers1");

@@ -7,11 +7,6 @@ try {
     String newEmail = request.getParameter("newEmail");
     String newFirstName = request.getParameter("newFirstName");
     String newLastName = request.getParameter("newLastName");
-    if(newUsername.equals("")) throw new Exception();
-    if(newPassword.equals("")) throw new Exception();
-    if(newEmail.equals("")) throw new Exception();
-    if(newFirstName.equals("")) throw new Exception();
-    if(newLastName.equals("")) throw new Exception();
     Class.forName("com.mysql.jdbc.Driver");
     Connection con = DriverManager.getConnection("jdbc:mysql://trainappdb.cmeqwsu4k6hd.us-east-2.rds.amazonaws.com:3306/project", "admin", "Rutgers1");
     

@@ -119,7 +119,7 @@ if (session.getAttribute("user") == null || session.getAttribute("userType") == 
 			String question = f.getQuestion();
 			String answer = f.getAnswer();
 			
-			if (filterQuery != null && !filterQuery.equals("") && !question.contains(filterQuery)) {
+			if (filterQuery != null && !filterQuery.equals("") && !question.toLowerCase().contains(filterQuery)) {
 				continue;
 			}
 		%>

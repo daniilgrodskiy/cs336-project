@@ -14,7 +14,7 @@
        Password: <input type="password" name="newPassword" required/> <br/>
        Email: <input type="text" name="newEmail" required/> <br/>
        First Name: <input type="text" name="newFirstName" required/> <br/>
-       Last Name: <input type="text" name="newLastName" required/> <br/>
+       Last Name: <input type="text" name="newLastName" required /> <br/>
        <button class="btn">Sign up</button>
      </form>
      <a href="login.jsp">I already have an account</a>

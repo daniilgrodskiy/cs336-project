@@ -2,17 +2,18 @@
 <%@ page import="javax.servlet.http.*,javax.servlet.*, java.text.SimpleDateFormat"%>
 
 <%	
- 		if (session.getAttribute("user") == null) 
-			response.sendRedirect("../success.jsp");
+	if (session.getAttribute("user") == null || session.getAttribute("userType") == null || !session.getAttribute("userType").equals("rep")) {
+		response.sendRedirect("../success.jsp");
+	}
  
- 		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://trainappdb.cmeqwsu4k6hd.us-east-2.rds.amazonaws.com:3306/project", "admin", "Rutgers1");
-		
-		String filterQuery = request.getParameter("filterQuery");
-		
-		if (filterQuery == null) {
-			filterQuery = "";
-		}
+	Class.forName("com.mysql.jdbc.Driver");
+	Connection con = DriverManager.getConnection("jdbc:mysql://trainappdb.cmeqwsu4k6hd.us-east-2.rds.amazonaws.com:3306/project", "admin", "Rutgers1");
+	
+	String filterQuery = request.getParameter("filterQuery");
+	
+	if (filterQuery == null) {
+		filterQuery = "";
+	}
 			
 %>
 

@@ -2,6 +2,10 @@
 <%@ page import="javax.servlet.http.*,javax.servlet.*, java.text.SimpleDateFormat"%>
 
 <%
+	if (session.getAttribute("user") == null || session.getAttribute("userType") == null || !session.getAttribute("userType").equals("rep")) {
+		response.sendRedirect("../success.jsp");
+	}
+
 	String name = request.getParameter("name"); 
 	String tid = request.getParameter("tid");
 	String sid = request.getParameter("sid");

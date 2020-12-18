@@ -7,7 +7,7 @@
    <body>
    <div id="content">
 
-<% if ((session.getAttribute("user") == null)) {%>
+<% if (session.getAttribute("user") == null || session.getAttribute("userType") == null) {%>
 
 <p>You are not logged in</p>
 
@@ -15,7 +15,7 @@
 
 <%} else {
  	System.out.println(session.getAttribute("userType"));
-	 if (session.getAttribute("userType").equals("customer")) {
+	if (session.getAttribute("userType").equals("customer")) {
 		// Redirect to customer page
 		response.sendRedirect("./customer/dashboard.jsp");
 	} else if (session.getAttribute("userType").equals("rep")) {

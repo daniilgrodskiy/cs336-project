@@ -6,6 +6,13 @@
 <%@ page import ="java.util.Date" %>
 <%@ page import ="com.cs336.eliza.Revenue" %>
 
+
+<%
+if (session.getAttribute("user") == null || session.getAttribute("userType") == null || !session.getAttribute("userType").equals("admin")) {
+	response.sendRedirect("../success.jsp");
+}
+%>
+
 <%
 
 	//get sort param, if exists

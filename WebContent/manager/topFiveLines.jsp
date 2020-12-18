@@ -7,6 +7,13 @@
 
 
 <%
+if (session.getAttribute("user") == null || session.getAttribute("userType") == null || !session.getAttribute("userType").equals("admin")) {
+	response.sendRedirect("../success.jsp");
+}
+%>
+
+
+<%
 	LocalDate currentdate = LocalDate.now();
 	int month = currentdate.getMonthValue();
 

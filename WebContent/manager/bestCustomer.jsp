@@ -3,6 +3,13 @@
 <%@ page import ="java.sql.*"%>
 <%@ page import ="java.util.HashMap"%>
 
+
+<%
+if (session.getAttribute("user") == null || session.getAttribute("userType") == null || !session.getAttribute("userType").equals("admin")) {
+	response.sendRedirect("../success.jsp");
+}
+%>
+
 <%
 
 	Class.forName("com.mysql.jdbc.Driver");

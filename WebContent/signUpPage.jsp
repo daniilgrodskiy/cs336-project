@@ -10,11 +10,11 @@
    <div id="content">
    	 <h1>Sign up</h1>
      <form action="displaySignUpDetails.jsp" method="POST">
-       Username: <input type="text" name="newUsername"/> <br/>
-       Password: <input type="password" name="newPassword"/> <br/>
-       Email: <input type="text" name="newEmail"/> <br/>
-       First Name: <input type="text" name="newFirstName"/> <br/>
-       Last Name: <input type="text" name="newLastName"/> <br/>
+       Username: <input type="text" name="newUsername" required/> <br/>
+       Password: <input type="password" name="newPassword" required/> <br/>
+       Email: <input type="text" name="newEmail" required/> <br/>
+       First Name: <input type="text" name="newFirstName" required /> <br/>
+       Last Name: <input type="text" name="newLastName" required /> <br/>
        <button class="btn">Sign up</button>
      </form>
      <a href="login.jsp">I already have an account</a>

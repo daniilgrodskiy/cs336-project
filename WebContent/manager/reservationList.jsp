@@ -6,6 +6,13 @@
 <%@ page import ="java.util.Date" %>
 <%@ page import ="com.cs336.eliza.Reservation" %>
 
+
+<%
+if (session.getAttribute("user") == null || session.getAttribute("userType") == null || !session.getAttribute("userType").equals("admin")) {
+	response.sendRedirect("../success.jsp");
+}
+%>
+
 <%
 
 	//get sort param, if exists
@@ -58,6 +65,17 @@
 	</head>
 	
 	<body>
+	
+	<div class="flex-nav">
+  		<div>
+  			<h1 id="title">Trainy </h1>
+  		</div>
+		<div class="userCard">
+		 	<p id="userType">Customer</p>
+		 	<p id="username">Hello, <%=session.getAttribute("user")%>!</p>
+			<p><a id="logOut" href='../logout.jsp'>Log out</a></p>
+		</div>
+   	</div>
 	
 	<div id="content">
 	<h1>List of Reservations</h1>

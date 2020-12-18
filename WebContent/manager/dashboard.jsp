@@ -1,3 +1,11 @@
+<%
+if (session.getAttribute("user") == null || session.getAttribute("userType") == null || !session.getAttribute("userType").equals("admin")) {
+	response.sendRedirect("../success.jsp");
+}
+%>
+
+
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -5,6 +13,16 @@
 		<title>Train App</title>
 	</head>
    <body>
+   <div class="flex-nav">
+  		<div>
+  			<h1 id="title">Trainy </h1>
+  		</div>
+		<div class="userCard">
+		 	<p id="userType">Customer</p>
+		 	<p id="username">Hello, <%=session.getAttribute("user")%>!</p>
+			<p><a id="logOut" href='../logout.jsp'>Log out</a></p>
+		</div>
+   	</div>
 	   <div id="content">
 		   <p>Welcome, manager <%=session.getAttribute("user")%>!</p>
 		   <p><a href="addCustomerRep.jsp">Add customer representative information</a></p>

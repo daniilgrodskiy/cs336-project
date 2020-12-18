@@ -63,6 +63,17 @@ if (session.getAttribute("user") == null || session.getAttribute("userType") == 
 	
 	<body>
 	
+	<div class="flex-nav">
+  		<div>
+  			<h1 id="title">Trainy </h1>
+  		</div>
+		<div class="userCard">
+		 	<p id="userType">Customer</p>
+		 	<p id="username">Hello, <%=session.getAttribute("user")%>!</p>
+			<p><a id="logOut" href='../logout.jsp'>Log out</a></p>
+		</div>
+   	</div>
+	
 	<div id="content">
 	<h1>Revenue Listing</h1>
 	<table>

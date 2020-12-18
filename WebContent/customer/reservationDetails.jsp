@@ -10,6 +10,11 @@
 <%@ page import ="java.text.DecimalFormat" %>
 
 <%
+if (session.getAttribute("user") == null || session.getAttribute("userType") == null || !session.getAttribute("userType").equals("customer")) {
+	response.sendRedirect("../success.jsp");
+}
+%>
+<%
 	String origin = request.getParameter("origin");
 	String dest = request.getParameter("dest");
 	String date = request.getParameter("date");

@@ -6,6 +6,12 @@
 <%@ page import ="java.util.Date" %>
 <%@ page import ="com.cs336.eliza.Reservation" %>
 
+
+<%
+if (session.getAttribute("user") == null || session.getAttribute("userType") == null || !session.getAttribute("userType").equals("customer")) {
+	response.sendRedirect("../success.jsp");
+}
+%>
 <%
 
 	//get sort param, if exists

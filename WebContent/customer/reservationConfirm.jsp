@@ -6,6 +6,12 @@
 <%@ page import ="java.util.ArrayList" %>
 <%@ page import ="com.cs336.pkg.gwm.ReservationStop" %>
 
+
+<%
+if (session.getAttribute("user") == null || session.getAttribute("userType") == null || !session.getAttribute("userType").equals("customer")) {
+	response.sendRedirect("../success.jsp");
+}
+%>
 <% 
 	Class.forName("com.mysql.jdbc.Driver");
 	Connection con = DriverManager.getConnection("jdbc:mysql://trainappdb.cmeqwsu4k6hd.us-east-2.rds.amazonaws.com:3306/project", "admin", "Rutgers1");

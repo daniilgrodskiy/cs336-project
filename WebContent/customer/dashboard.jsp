@@ -1,3 +1,10 @@
+<%
+if (session.getAttribute("user") == null || session.getAttribute("userType") == null || !session.getAttribute("userType").equals("customer")) {
+	response.sendRedirect("../success.jsp");
+}
+%>
+
+
 <!DOCTYPE html>
 <html>
 	<head>

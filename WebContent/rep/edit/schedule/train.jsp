@@ -3,9 +3,8 @@
 
 <%
 	if (session.getAttribute("user") == null || session.getAttribute("userType") == null || !session.getAttribute("userType").equals("rep")) {
-		response.sendRedirect("../../../success.jsp");
+		response.sendRedirect("../success.jsp");
 	}
-
 
 	String oldName = request.getParameter("name"); 
 	String oldTid = request.getParameter("tid");

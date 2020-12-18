@@ -2,10 +2,9 @@
 <%@ page import="javax.servlet.http.*,javax.servlet.*, java.text.SimpleDateFormat"%>
 
 <%
-if (session.getAttribute("user") == null || session.getAttribute("userType") == null || !session.getAttribute("userType").equals("rep")) {
-	response.sendRedirect("../../../success.jsp");
-}
-
+	if (session.getAttribute("user") == null || session.getAttribute("userType") == null || !session.getAttribute("userType").equals("rep")) {
+		response.sendRedirect("../success.jsp");
+	}
 
 	String sid = request.getParameter("sid");
 	String oldState = request.getParameter("oldState");

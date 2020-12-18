@@ -7,7 +7,7 @@ if (session.getAttribute("user") == null || session.getAttribute("userType") == 
 	response.sendRedirect("../../success.jsp");
 }
 %>
-<%
+<%	
  		if (session.getAttribute("user") == null) {
 			response.sendRedirect("../success.jsp");
  		}

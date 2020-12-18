@@ -11,6 +11,11 @@
 
 
 <%
+if (session.getAttribute("user") == null || session.getAttribute("userType") == null || !session.getAttribute("userType").equals("customer")) {
+	response.sendRedirect("../success.jsp");
+}
+%>
+<%
 	String originName = request.getParameter("origin");
 	String destName = request.getParameter("dest");
     String date = request.getParameter("date");

@@ -1,6 +1,12 @@
 <%@ page import="java.io.*,java.util.*,java.sql.*,daniil.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*, java.text.SimpleDateFormat"%>
 
+
+<%
+if (session.getAttribute("user") == null || session.getAttribute("userType") == null || !session.getAttribute("userType").equals("customer")) {
+	response.sendRedirect("../../success.jsp");
+}
+%>
 <%	
  		if (session.getAttribute("user") == null) {
 			response.sendRedirect("../success.jsp");

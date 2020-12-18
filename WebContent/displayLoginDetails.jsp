@@ -8,6 +8,8 @@
     String usertype = request.getParameter("userType");
     System.out.println(usertype);
 
+    System.out.println(userid.equals(""));
+
     Class.forName("com.mysql.jdbc.Driver");
     Connection con = DriverManager.getConnection("jdbc:mysql://trainappdb.cmeqwsu4k6hd.us-east-2.rds.amazonaws.com:3306/project", "admin", "Rutgers1");
 
@@ -30,7 +32,7 @@
 	</head>
    <body>
    <div id="content">
-	<% if (rs.next()) {
+	<% if (rs.next() && !userid.equals("")) {
         session.setAttribute("user", userid);
         session.setAttribute("userType", usertype);
 
@@ -42,7 +44,7 @@
         <p><a href='logout.jsp'>Log out</a></p>
         <% response.sendRedirect("success.jsp");
     } else {%>
-        <p>Invalid password</p>
+        <p>Invalid login</p>
         <p><a href='login.jsp'>Try again</a></p>
     <% } %>
 

@@ -35,6 +35,8 @@
 	st.executeUpdate("insert into `reservation` (`rid`,`date`,`total_fare`) VALUES (" + id + ",'" + insertDate + "'," + fare + ")");
 	st.executeUpdate("insert into `makes` (`rid`,`is_past`,`email`) VALUES (" + id + ",'" + 0 + "','" + session.getAttribute("userEmail") + "')");
 	st.executeUpdate("insert into `has` (`rid`,`tid`) VALUES (" + id + "," + res.getTrain() + ")");
+	st.executeUpdate("insert into `origin` (`rid`,`tid`) VALUES (" + id + "," + res.getStation() + ")");
+	st.executeUpdate("insert into `origin` (`rid`,`tid`) VALUES (" + id + "," + res.getStation() + ")");
 	
 %>
 

@@ -12,12 +12,21 @@
 	
 	String rid = request.getParameter("IDForDelete");
 
+	boolean correctUser = false;
 	
 	Statement st = con.createStatement();
+	ResultSet rs = st.executeQuery("select * from makes where rid=" + rid);
+	rs.next();
+	if(rs.getString("email").equals(session.getAttribute("userEmail"))){
+		correctUser = true;
+		st.executeUpdate("delete from makes where rid=" + rid);
+		st.executeUpdate("delete from has where rid=" + rid);
+		st.executeUpdate("delete from reservation where rid=" + rid);
+	}
 	
-	st.executeUpdate("delete from makes where rid=" + rid);
-	st.executeUpdate("delete from has where rid=" + rid);
-	st.executeUpdate("delete from reservation where rid=" + rid);
+	
+	
+	
 	
 %>
 
@@ -30,7 +39,9 @@
 	</head>
    <body>
    <div id="content">
-		<p>Your reservation has been deleted</p>
+   	<%if(correctUser){ %><p>Your reservation has been deleted</p>
+	<%} else {%><p>No reservations found with that ID</p><%} %>
+		
 		
 		<p><a href="./reservationView.jsp">Continue</a></p>
 

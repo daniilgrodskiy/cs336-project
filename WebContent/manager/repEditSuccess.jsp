@@ -36,77 +36,69 @@
             success = 5;
         }
     } else if(operation.equals("add")){
-        if(ssn != -1){
-            ResultSet rs;
-            rs = st.executeQuery("select * from reps where ssn='" + ssn + "'");
-            if(rs.next()){
-                success = 2;
-                System.out.println("value already in db");
-            } else{
-                String fname = request.getParameter("First Name");
-                String lname = request.getParameter("Last Name");
-                String user = request.getParameter("Username");
-                String pass = request.getParameter("Password");
-                st.executeUpdate("insert into reps values ('" + lname + "', '" + user + "', '" + pass + "', '" + fname + "', '"+ssn+"')");
-                System.out.println("\n\n\n\n-----------Attempted: insert into reps values ('" + lname + "', '" + user + "', '" + pass + "', '" + fname + "', '"+ssn+"')");
-                success = 1;
-    	    }
-    	}else{
-    	    success = 5;
+    	ResultSet rs;
+    	rs = st.executeQuery("select * from reps where ssn='" + ssn + "'");
+    	if(rs.next()){
+    		success = 2;
+    		System.out.println("value already in db");
+    	} else{
+    	String fname = request.getParameter("First Name"); 
+		String lname = request.getParameter("Last Name"); 
+		String user = request.getParameter("Username"); 
+		String pass = request.getParameter("Password"); 
+    	st.executeUpdate("insert into reps values ('" + lname + "', '" + user + "', '" + pass + "', '" + fname + "', '"+ssn+"')");
+		System.out.println("\n\n\n\n-----------Attempted: insert into reps values ('" + lname + "', '" + user + "', '" + pass + "', '" + fname + "', '"+ssn+"')"); 
+    	success = 1;
     	}
     } else if(operation.equals("edit")){
-        if(ssn != -1){
-            ResultSet rs;
-            rs = st.executeQuery("select * from reps where ssn='" + ssn + "'");
-            if(!rs.next()){
-                System.out.println("value not in db");
-                success = 3;
-                rs.close();
-            } else{
-                rs.close();
-                System.out.println("value in db");
-            String fname = request.getParameter("First Name");
-            String lname = request.getParameter("Last Name");
-            String user = request.getParameter("Username");
-            String pass = request.getParameter("Password");
-            String newssn = request.getParameter("editssn");
-            if(newssn.length() > 0){
-                int editssn = Integer.parseInt(newssn);
-                ResultSet r;
-                r = st.executeQuery("select * from reps where ssn='" + newssn + "'");
-                if(r.next()){
-                    System.out.println("cannot edit to existing ssn");
-                    success = 4;
-                }else{
-                    st.executeUpdate("update reps set ssn ='" + editssn + "' where (ssn ='" + ssn + "')");
-                    System.out.println("\n\n\n\n-----------Attempted: update reps set ssn ='" + editssn + "' where (ssn ='" + ssn + "')");
-                    success = 1;
-                }
-            }
-            if(fname.length() > 0){
-                st.executeUpdate("update reps set first_name ='" + fname + "' where (ssn ='" + ssn + "')");
-                System.out.println("\n\n\n\n-----------Attempted: update reps set first_name ='" + fname + "' where (ssn ='" + ssn + "')");
-                success = 1;
-            }
-            if(lname.length() > 0){
-                st.executeUpdate("update reps set last_name ='" +lname + "' where (ssn ='" + ssn + "')");
-                System.out.println("\n\n\n\n-----------Attempted: update reps set last_name ='" +lname + "' where (ssn ='" + ssn + "')");
-                success = 1;
-            }
-            if(user.length() > 0){
-                st.executeUpdate("update reps set username ='" + user+ "' where (ssn ='" + ssn + "')");
-                System.out.println("\n\n\n\n-----------Attempted: update reps set username ='" + user+ "' where (ssn ='" + ssn + "')");
-                success = 1;
-            }
-            if(pass.length() > 0){
-                st.executeUpdate("update reps set password ='" + pass+ "' where (ssn ='" + ssn + "')");
-                System.out.println("\n\n\n\n-----------Attempted: update reps set password ='" + pass+ "' where (ssn ='" + ssn + "')");
-                success = 1;
-            }
-            }
-        }else{
-            success = 5;
-        }
+    	ResultSet rs;
+    	rs = st.executeQuery("select * from reps where ssn='" + ssn + "'");
+    	if(!rs.next()){
+    		System.out.println("value not in db");
+    		success = 3;
+    		rs.close();
+    	} else{
+    		rs.close();
+    		System.out.println("value in db");
+    	String fname = request.getParameter("First Name"); 
+		String lname = request.getParameter("Last Name"); 
+		String user = request.getParameter("Username"); 
+		String pass = request.getParameter("Password"); 
+		String newssn = request.getParameter("editssn");
+		if(newssn.length() > 0){
+			int editssn = Integer.parseInt(newssn);
+			ResultSet r;
+			r = st.executeQuery("select * from reps where ssn='" + newssn + "'");
+	    	if(r.next()){
+	    		System.out.println("cannot edit to existing ssn");
+	    		success = 4;
+	    	}else{
+				st.executeUpdate("update reps set ssn ='" + editssn + "' where (ssn ='" + ssn + "')");
+				System.out.println("\n\n\n\n-----------Attempted: update reps set ssn ='" + editssn + "' where (ssn ='" + ssn + "')");
+				success = 1;
+			}
+		}
+		if(fname.length() > 0){
+			st.executeUpdate("update reps set first_name ='" + fname + "' where (ssn ='" + ssn + "')");
+			System.out.println("\n\n\n\n-----------Attempted: update reps set first_name ='" + fname + "' where (ssn ='" + ssn + "')");
+			success = 1;
+		}
+		if(lname.length() > 0){
+			st.executeUpdate("update reps set last_name ='" +lname + "' where (ssn ='" + ssn + "')");	
+			System.out.println("\n\n\n\n-----------Attempted: update reps set last_name ='" +lname + "' where (ssn ='" + ssn + "')");
+			success = 1;
+		}
+		if(user.length() > 0){
+			st.executeUpdate("update reps set username ='" + user+ "' where (ssn ='" + ssn + "')");
+			System.out.println("\n\n\n\n-----------Attempted: update reps set username ='" + user+ "' where (ssn ='" + ssn + "')");
+			success = 1;
+		}
+		if(pass.length() > 0){
+			st.executeUpdate("update reps set password ='" + pass+ "' where (ssn ='" + ssn + "')");
+			System.out.println("\n\n\n\n-----------Attempted: update reps set password ='" + pass+ "' where (ssn ='" + ssn + "')");
+			success = 1;
+		}
+		}
     }
 
 
@@ -130,7 +122,7 @@
 	   <%} else if(success == 4){ %>
 	   		<p>There already exists a customer representative with that social security number. You cannot change a user's social security number to be the same as someone else's. Please try with another social security number.</p>
 	   <%} else if(success == 5){ %>
-            <p>Please enter a valid social security number.</p>
+            <p>Please enter a social security number.</p>
        <%} %>
 	   </div>
 	   

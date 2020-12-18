@@ -7,13 +7,12 @@ try {
     String newEmail = request.getParameter("newEmail");
     String newFirstName = request.getParameter("newFirstName");
     String newLastName = request.getParameter("newLastName");
-    int k = 0;
-    if(newUsername.equals("")) k = 1/0;
-    if(newPassword.equals("")) k = 1/0;
-    if(newEmail.equals("")) k = 1/0;
-    if(newUsername.equals("")) k = 1/0;
-    if(newFirstName.equals("")) k = 1/0;
-    if(newLastName.equals("")) k = 1/0;
+    if(newUsername.equals("")) throw new Exception();
+    if(newPassword.equals("")) throw new Exception();
+    if(newEmail.equals("")) throw new Exception();
+    if(newUsername.equals("")) throw new Exception();
+    if(newFirstName.equals("")) throw new Exception();
+    if(newLastName.equals("")) throw new Exception();
     Class.forName("com.mysql.jdbc.Driver");
     Connection con = DriverManager.getConnection("jdbc:mysql://trainappdb.cmeqwsu4k6hd.us-east-2.rds.amazonaws.com:3306/project", "admin", "Rutgers1");
     

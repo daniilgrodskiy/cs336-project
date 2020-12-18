@@ -2,11 +2,18 @@
 <%
 
 try {
-    String newUsername = request.getParameter("newUsername");   
+    String newUsername = request.getParameter("newUsername");
     String newPassword = request.getParameter("newPassword");
     String newEmail = request.getParameter("newEmail");
     String newFirstName = request.getParameter("newFirstName");
     String newLastName = request.getParameter("newLastName");
+    int k = 0;
+    if(newUsername.equals("")) k = 1/0;
+    if(newPassword.equals("")) k = 1/0;
+    if(newEmail.equals("")) k = 1/0;
+    if(newUsername.equals("")) k = 1/0;
+    if(newFirstName.equals("")) k = 1/0;
+    if(newLastName.equals("")) k = 1/0;
     Class.forName("com.mysql.jdbc.Driver");
     Connection con = DriverManager.getConnection("jdbc:mysql://trainappdb.cmeqwsu4k6hd.us-east-2.rds.amazonaws.com:3306/project", "admin", "Rutgers1");
     
@@ -36,8 +43,8 @@ try {
 
 	response.sendRedirect("success.jsp");
 } catch(Exception e) {
-	out.print(e);
-	out.print("Insert failed. <a href='login.jsp'>Try again.</a>");
+	//out.print(e);
+	out.print("Invalid Sign up. <a href='login.jsp'>Try again.</a>");
 }
     
     

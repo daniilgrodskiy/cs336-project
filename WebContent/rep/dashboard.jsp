@@ -251,7 +251,7 @@
 								    </td>
 								    <td>
 								    	<a href="./edit/stop/arrival.jsp?arrival=<%=DATE_FORMAT.format(stop.getArrivalTime())%>&name=<%=s.getTransitLineName()%>&tid=<%=s.getTrain().getTid()%>&sid=<%=stop.getStation().getSid()%>">
-								    	<%=DATE_FORMAT.format(stop.getArrivalTime())%></td>
+								    	<%=DATE_FORMAT.format(stop.getArrivalTime())%>
 								    	</a>
 								    <td>
 								    	<a href="./edit/stop/departure.jsp?departure=<%=DATE_FORMAT.format(stop.getDepartureTime())%>&name=<%=s.getTransitLineName()%>&tid=<%=s.getTrain().getTid()%>&sid=<%=stop.getStation().getSid()%>">
@@ -270,6 +270,14 @@
 						  		Fare: <%=s.getFare()%>
 						  	</a>
 					   	</div>
+					   	
+					   	<form action="./edit/schedule/deleteSchedule.jsp">
+						   	<div>
+						   		<input style="display:none" type="text" name="name" value="<%=s.getTransitLineName()%>">
+					   			<input style="display:none" type="text" name="tid" value="<%=s.getTrain().getTid()%>">
+						   		<input class="btn" style="background: red; color: white; margin:auto; margin-top: 10px" type="submit" value="Delete Schedule">
+						   	</div>
+					   	</form>
 					  </div>
 					  
 					<%
@@ -281,6 +289,7 @@
 			   
 			   con.close();
 		   %>
+		   </div>
 	   </div>
    </body>
 </html>

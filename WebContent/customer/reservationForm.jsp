@@ -50,7 +50,7 @@ if (session.getAttribute("user") == null || session.getAttribute("userType") == 
 	<div id="content">
 	<h1>Find Routes</h1>
 		<form action="reservationDetails.jsp" method="POST">
-			<p><strong>Origin:</strong></p>
+			<p><strong>Destination:</strong></p>
 				<select name="origin" id="origin">
 					<% for(int i = 0; i < ll.size(); i++){  %>
 
@@ -58,7 +58,7 @@ if (session.getAttribute("user") == null || session.getAttribute("userType") == 
 
 						<% } %>
 				</select>
-			<p><strong>Destination:</strong></p>
+			<p><strong>Origin:</strong></p>
 				<select name="dest" id="dest">
 					<% for(int i = 0; i < ll.size(); i++){  %>
 

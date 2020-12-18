@@ -15,7 +15,7 @@
 				<a class="navItem" href="./faq/faq.jsp">FAQ</a>
    			</div>
 			<div class="userCard">
-			 	<p id="userType">Customer Representative</p>
+			 	<p id="userType">Customer</p>
 			 	<p id="username">Hello, <%=session.getAttribute("user")%>!</p>
 				<p><a id="logOut" href='../logout.jsp'>Log out</a></p>
 			</div>

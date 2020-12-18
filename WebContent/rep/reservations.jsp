@@ -64,31 +64,26 @@
 				while (reservationResult.next()) {
 
 					// Has
-					String hasQuery = 
-					  			"select * from has" +
-					  			" where rid = " + reservationResult.getInt("rid");
+					String hasQuery = "select * from has where rid = " + reservationResult.getInt("rid");
 					
 					stmt = con.createStatement();
 					ResultSet hasResult = stmt.executeQuery(hasQuery);
-					hasResult.next();
+					while(hasResult.next()){
 					
 					// Makes
-					String makesQuery = 
-					  			"select * from makes" +
-					  			" where rid = " + hasResult.getInt("rid");
+					String makesQuery = "select * from makes where rid = " + hasResult.getInt("rid");
 					
 					stmt = con.createStatement();
 					ResultSet makesResult = stmt.executeQuery(makesQuery);
 					makesResult.next();
 					
 					// Customer
-					String customerQuery = 
-					  			"select * from customer" +
-					  			" where email = '" + makesResult.getString("email") + "'";
+					String customerQuery = "select * from customer where email = '" + makesResult.getString("email") + "'";
 					
 					stmt = con.createStatement();
 					ResultSet customerResult = stmt.executeQuery(customerQuery);
-					customerResult.next();
+					while(customerResult.next()){
+					//customerResult.next();
 					
 					Customer customer = new Customer(
 						customerResult.getString("email"),
@@ -107,6 +102,9 @@
 					
 					reservations.add(reservation);
 					trains.add(hasResult.getInt("tid"));
+					}//if customerResult
+					}//if makesResult
+					
 				}
 				
 				

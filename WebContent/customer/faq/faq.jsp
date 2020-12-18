@@ -41,7 +41,7 @@ if (session.getAttribute("user") == null || session.getAttribute("userType") == 
 			<div class="userCard">
 			 	<p id="userType">Customer</p>
 			 	<p id="username">Hello, <%=session.getAttribute("user")%>!</p>
-				<p><a id="logOut" href='../logout.jsp'>Log out</a></p>
+				<p><a id="logOut" href='../../logout.jsp'>Log out</a></p>
 			</div>
    		</div>
    

@@ -124,6 +124,21 @@
 	
 	<body>
 	
+	<div class="flex-nav">
+  		<div>
+  			<h1 id="title">Trainy </h1>
+			<a class="navItem" href="./browse.jsp">Browse Trains</a>
+			<a class="navItem" href="./reservationForm.jsp">Make a Reservation</a>
+			<a class="navItem" href="./reservationView.jsp">My Reservations</a>
+			<a class="navItem" href="./faq/faq.jsp">FAQ</a>
+  			</div>
+		<div class="userCard">
+		 	<p id="userType">Customer</p>
+		 	<p id="username">Hello, <%=session.getAttribute("user")%>!</p>
+			<p><a id="logOut" href='../logout.jsp'>Log out</a></p>
+		</div>
+   	</div>
+	
 	<div id="content" style="width:90%!important">
 	<h1>Browse Schedules</h1>
 	

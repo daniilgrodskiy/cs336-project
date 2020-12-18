@@ -24,25 +24,21 @@
 		<title>Train App</title>
 	</head>
    <body>
-   		<%-- <div class="flex-nav">
+   		<div class="flex-nav">
    			<div>
    				<h1 id="title">Trainy </h1>
-				<a class="navItem" href="./dashboard.jsp">Schedules</a>
-				<a class="navItem" href="./faq.jsp">FAQ</a>
-				<a class="navItem" href="./reservations.jsp">Reservations</a>
+				<a class="navItem" href="../browse.jsp">Browse Trains</a>
+				<a class="navItem" href="../reservationForm.jsp">Make a Reservation</a>
+				<a class="navItem" href="../reservationView.jsp">My Reservations</a>
+				<a class="navItem" href="../faq/faq.jsp">FAQ</a>
    			</div>
 			<div class="userCard">
-			 	<p id="userType">Customer Representative</p>
+			 	<p id="userType">Customer</p>
 			 	<p id="username">Hello, <%=session.getAttribute("user")%>!</p>
 				<p><a id="logOut" href='../logout.jsp'>Log out</a></p>
 			</div>
    		</div>
-   		--%>
-   		 <div style="text-align:center;">
-	   		<form action="../dashboard.jsp">
-		        <input class="btn" type=submit value="Go back">
-	        </form>
-        </div> 
+   
    		<div style="text-align:center;">
 	   		<form action="./faq.jsp">
 		        <input class="btn" type=submit value="Show All Questions">

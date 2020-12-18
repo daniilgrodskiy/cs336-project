@@ -45,3 +45,88 @@ input,
 button {
     font-family: 'Roboto', sans-serif;
 }
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+a:hover {
+	color: #d5d5d5;
+	transition: 0.1s;
+}
+
+
+
+/* Top Bar */
+.flex-nav {
+	background: #797979;
+	margin: 30px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-radius: 15px;	
+}
+
+
+.userCard {
+	background: #d5d5d5;
+	text-align: center;
+	padding: 10px;
+	border-radius: 10px;
+	margin-right: 50px;
+}
+
+#title {
+	color: white;
+	font-size: 70px;
+	margin-left: 50px;
+	margin-right: 50px;
+	font-weight: 900;
+}
+
+.navItem {
+	margin-left: 20px;
+	border-radius: 15px;
+	background: #424242;
+	padding: 20px;
+	font-size: 20px;
+	color: white;
+	text-align: center;
+	text-decoration: none;
+	transition: 0.1s;
+	font-weight: 200;
+/* 	box-shadow: 0 5px 5px 0 #212121;
+ */	
+}
+
+.navItem:hover {
+	color: #d5d5d5;
+	transition: 0.1s;
+}
+
+#logOut {
+	border-radius: 15px;
+	background: #424242;
+	padding: 10px;
+	font-size: 15px;
+	color: white;
+	text-align: center;
+	text-decoration: none;
+	transition: 0.1s;
+	font-weight: 200;
+}
+
+#logOut:hover {
+	color: #d5d5d5;
+	transition: 0.1s;
+}
+
+#userType {
+	font-weight: 500;
+	border-radius: 15px;
+	background: #a9a9a9;
+	padding: 10px;
+	font-size: 15px;
+	color: white;
+}

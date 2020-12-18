@@ -35,7 +35,7 @@
         session.setAttribute("userType", usertype);
 
         if(usertype.equals("customer")){
-        session.setAttribute("userEmail", rs.getString("email"));
+        	session.setAttribute("userEmail", rs.getString("email"));
         }
         %><!-- the username will be stored in the session -->
         <p>Welcome <%=userid%></p>

@@ -32,7 +32,16 @@ try {
   		  	" and tid = " +  tid +
     		" and sid = " +  sid;
     	
-    	stmt.executeUpdate(update);    	
+    	stmt.executeUpdate(update); 
+    	
+    	stmt = con.createStatement();
+    	update = 
+      			"update schedule" +
+      			" set arrival_datetime = '" + arrivalTimestamp + "'" + 
+      			" where transit_line_name = '" + name + "'" + 
+      		  	" and tid = " +  tid;
+        	
+        stmt.executeUpdate(update);
     } else if (departure != null) {
     	// Update stop
     	Timestamp departureTimestamp = new java.sql.Timestamp(DATE_FORMAT.parse(departure).getTime());
@@ -45,7 +54,18 @@ try {
     		" and sid = " +  sid;
     	
     	stmt.executeUpdate(update);
+    	
+    	update = 
+      			"update schedule" +
+      			" set departure_datetime = '" + departureTimestamp + "'" + 
+      			" where transit_line_name = '" + name + "'" + 
+      		  	" and tid = " +  tid;
+        	
+        stmt.executeUpdate(update);
     } 
+    
+    stmt.close();
+    con.close();
  
 	response.sendRedirect("../../dashboard.jsp");
 } catch(Exception e) {

@@ -14,6 +14,7 @@ if (session.getAttribute("user") == null || session.getAttribute("userType") == 
 	response.sendRedirect("../success.jsp");
 }
 %>
+
 <%
 	String origin = request.getParameter("origin");
 	String dest = request.getParameter("dest");

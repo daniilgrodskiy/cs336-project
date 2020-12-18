@@ -17,7 +17,7 @@
 	
 	<h1>Edit customer representative</h1>
 	<form action="repEditSuccess.jsp" method="POST">
-	Social Security Number of representative you wish to edit: <input type="number" name="Social Security Number"/><br/>
+	Social Security Number of representative you wish to edit: <input type="number" name="Social Security Number" required/><br/>
 	
 	<Strong>Input below any changes. If you do not want to change something, leave it blank.</Strong><br/><br/><br/>
 	First name: <input type="text" name="First Name" value=""/><br/>

@@ -18,7 +18,7 @@
 	<form action="repEditSuccess.jsp" method="POST">
 	Social Security Number of representative you wish to delete: <input type="number" name="Social Security Number"/><br/>
 	<input type="hidden" name="operation" value="delete"/>
-	<input type="submit" class="btn" value="Edit Customer Rep Account"/>
+	<input type="submit" class="btn" value="Delete Customer Rep Account"/>
 	<p style="color:red;">Note: If you delete a customer representative, it cannot be undone.</p>
 	</form>
 	

@@ -75,7 +75,7 @@
     	</table>
 	</div>
 
-		<div id="back" class="btn"><a href="salesReport.jsp">Go back</a></div>
+		<div id="back" class="btn"><a href="dashboard.jsp">Go back</a></div>
 
 
 	</body>

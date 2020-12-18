@@ -16,11 +16,11 @@
 	
 	<h1>Add customer representative</h1>
 	<form action="repEditSuccess.jsp" method="POST">
-	First name: <input type="text" name="First Name"/><br/>
-	Last name: <input type="text" name="Last Name"/><br/>
-	Username: <input type="text" name="Username"/><br/>
-	Password: <input type="password" name="Password"/><br/>
-	Social Security Number: <input type="number" name="Social Security Number"/><br/>
+	First name: <input type="text" name="First Name" required/><br/>
+	Last name: <input type="text" name="Last Name" required/><br/>
+	Username: <input type="text" name="Username" required/><br/>
+	Password: <input type="password" name="Password" required/><br/>
+	Social Security Number: <input type="number" name="Social Security Number" required/><br/>
 	<input type="hidden" name="operation" value="add"/>
 	<input type="submit" class="btn" value="Create Customer Rep Account"/>
 	

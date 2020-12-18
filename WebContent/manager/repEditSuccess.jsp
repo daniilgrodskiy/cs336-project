@@ -28,13 +28,20 @@
     //5 means no ssn entered
     int success = -1;
     if(operation.equals("delete")){
-        if(ssn != -1){
+    	ResultSet rs;
+    	rs = st.executeQuery("select * from reps where ssn='" + ssn + "'");
+    	if(!rs.next()){
+    		System.out.println("value not in db");
+    		success = 3;
+    		rs.close();
+    	} else{
+    	if(ssn != -1){
             st.executeUpdate("delete from reps where ssn='" + ssn + "'");
             System.out.println("\n\n\n\n-----------Attempted: delete from reps where ssn='" + ssn + "'");
             success = 1;
         }else{
             success = 5;
-        }
+        }}
     } else if(operation.equals("add")){
     	ResultSet rs;
     	rs = st.executeQuery("select * from reps where ssn='" + ssn + "'");
